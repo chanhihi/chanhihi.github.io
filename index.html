@@ -1,0 +1,794 @@
+<title>김찬희 — iOS Developer Portfolio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark:       #080C14;
+  --dark-surf:  #0E1622;
+  --dark-card:  #131D2C;
+  --dark-bdr:   #1E2D42;
+  --accent:     #00C48C;
+  --accent2:    #1A72E8;
+  --light-bg:   #F2F5F9;
+  --light-surf: #FFFFFF;
+  --light-bdr:  #D4DCE8;
+  --light-lo:   #EBF0F6;
+  --text-on-dark-hi:  #E8F0FA;
+  --text-on-dark:     #9DAFC4;
+  --text-on-dark-dim: #4A6070;
+  --text:       #1A2A3A;
+  --text-mid:   #364D62;
+  --text-dim:   #6E849A;
+  --warn:       #7A500A;
+  --danger:     #A82828;
+  --mono: "SF Mono", ui-monospace, "Cascadia Mono", monospace;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --nav-h: 56px;
+}
+
+html { scroll-behavior: smooth; background: var(--dark); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+body { overflow-x: hidden; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(8,12,20,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--dark-bdr);
+}
+.nav-name {
+  font-size: 14px; font-weight: 700; color: var(--text-on-dark-hi);
+  letter-spacing: -0.01em; font-family: var(--mono);
+}
+.nav-name span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a {
+  font-size: 13px; color: var(--text-on-dark); text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--text-on-dark-hi); }
+.nav-cta {
+  font-size: 12.5px; font-weight: 600; color: var(--dark) !important;
+  background: var(--accent); border-radius: 4px;
+  padding: 6px 14px; letter-spacing: 0.02em;
+  transition: opacity 0.15s !important;
+}
+.nav-cta:hover { opacity: 0.88; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--dark);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--nav-h) + 60px) 40px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,196,140,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(26,114,232,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-inner { max-width: 960px; margin: 0 auto; width: 100%; position: relative; }
+
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ""; display: block; width: 28px; height: 1px; background: var(--accent); }
+
+.hero h1 {
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 700; color: var(--text-on-dark-hi);
+  line-height: 1.0; letter-spacing: -0.04em;
+  margin-bottom: 14px;
+}
+.hero h1 .role {
+  display: block; font-size: clamp(18px, 3vw, 28px);
+  font-weight: 400; color: var(--text-on-dark);
+  letter-spacing: -0.01em; margin-top: 10px;
+}
+
+.hero-desc {
+  max-width: 520px;
+  font-size: 16px; color: var(--text-on-dark);
+  line-height: 1.75; margin-top: 24px;
+}
+
+/* hero stats */
+.hero-stats {
+  display: flex; gap: 0;
+  margin-top: 52px;
+  border: 1px solid var(--dark-bdr);
+  border-radius: 6px; overflow: hidden;
+  width: fit-content;
+}
+.hs {
+  padding: 20px 32px;
+  border-right: 1px solid var(--dark-bdr);
+  background: var(--dark-surf);
+}
+.hs:last-child { border-right: none; }
+.hs .hv {
+  font-family: var(--mono); font-size: 30px; font-weight: 700;
+  color: var(--text-on-dark-hi); font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em; line-height: 1;
+}
+.hs .hv .ga { color: var(--accent); }
+.hs .hl {
+  margin-top: 6px; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--text-on-dark-dim);
+  font-family: var(--mono);
+}
+
+/* ticker */
+.ticker-wrap {
+  margin-top: 48px;
+  overflow: hidden; position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.ticker {
+  display: flex; gap: 0;
+  width: max-content;
+  animation: tick 24s linear infinite;
+}
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-item {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em;
+  color: var(--text-on-dark-dim); white-space: nowrap;
+  padding: 0 20px; border-right: 1px solid var(--dark-bdr);
+}
+.ticker-item.hi { color: var(--accent); }
+
+/* scroll hint */
+.scroll-hint {
+  margin-top: 48px; display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-on-dark-dim);
+}
+.scroll-hint::after {
+  content: ""; display: block; width: 1px; height: 32px;
+  background: var(--dark-bdr);
+  animation: pulse-line 2s ease-in-out infinite;
+}
+@keyframes pulse-line { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+/* ─── ABOUT ─── */
+.about {
+  background: var(--light-bg);
+  padding: 80px 40px;
+}
+.about-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+
+.about-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
+.about h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 18px; line-height: 1.2; }
+.about p { font-size: 14.5px; color: var(--text-mid); line-height: 1.8; }
+.about p + p { margin-top: 12px; }
+
+.stack-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
+.stack-grid { display: flex; flex-direction: column; gap: 14px; }
+.stack-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.stack-group { padding-left: 0; }
+.stack-cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); width: 100%; margin-bottom: 6px; }
+.chip {
+  font-family: var(--mono); font-size: 11.5px;
+  background: var(--light-surf); border: 1px solid var(--light-bdr);
+  border-radius: 4px; padding: 4px 10px; color: var(--text-mid);
+}
+.chip.key {
+  background: rgba(0,196,140,0.07);
+  border-color: rgba(0,196,140,0.28);
+  color: var(--accent); font-weight: 700;
+  position: relative;
+}
+
+/* ─── PROJECT SECTION ─── */
+.project {
+  background: var(--light-surf);
+  border-top: 1px solid var(--light-bdr);
+  padding: 80px 40px;
+}
+.project-inner { max-width: 960px; margin: 0 auto; }
+
+.project-hd {
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: end; gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--text);
+  margin-bottom: 48px;
+}
+.project-hd .pj-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+.project-hd h2 { font-size: clamp(28px, 4.5vw, 44px); font-weight: 700; color: var(--text); letter-spacing: -0.03em; line-height: 1.0; margin-bottom: 10px; }
+.project-hd .pj-tagline { font-size: 15px; color: var(--text-mid); line-height: 1.6; max-width: 400px; }
+.project-hd .pj-meta { text-align: right; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.project-hd .pj-period { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; }
+.project-hd .pj-version { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.project-hd .pj-scale { font-family: var(--mono); font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.05em; }
+
+.project-overview {
+  background: var(--light-bg);
+  border: 1px solid var(--light-bdr);
+  border-radius: 6px; padding: 24px 28px;
+  margin-bottom: 48px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+}
+.ov-item .ov-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px; }
+.ov-item .ov-val { font-size: 13.5px; color: var(--text-mid); line-height: 1.5; }
+.ov-item .ov-val strong { color: var(--text); font-weight: 600; }
+
+/* achievement sections */
+.ach-section { margin-bottom: 48px; }
+.ach-section:last-child { margin-bottom: 0; }
+
+.ach-hd {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--light-bdr);
+}
+.ach-hd .ach-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.ach-hd .ach-dot.b { background: var(--accent2); }
+.ach-hd .ach-dot.r { background: var(--danger); }
+.ach-hd .ach-dot.w { background: var(--warn); }
+.ach-hd h3 { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.01em; }
+
+/* card grid */
+.cgrid { display: grid; gap: 10px; }
+.cg2 { grid-template-columns: repeat(2, 1fr); }
+.cg3 { grid-template-columns: repeat(3, 1fr); }
+.cga { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+/* card */
+.card {
+  background: var(--light-surf);
+  border: 1px solid var(--light-bdr);
+  border-radius: 5px; padding: 20px 22px;
+  border-left: 3px solid var(--accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  display: flex; flex-direction: column;
+}
+.card.b2 { border-left-color: var(--accent2); }
+.card.bw { border-left-color: var(--warn); }
+.card.br { border-left-color: var(--danger); }
+.card.bd { border-left-color: var(--light-bdr); }
+
+.tag {
+  display: inline-block; font-family: var(--mono); font-size: 9.5px;
+  letter-spacing: 0.09em; text-transform: uppercase; border-radius: 3px;
+  padding: 2px 7px; margin-bottom: 9px;
+  color: var(--accent); background: rgba(0,196,140,0.08); border: 1px solid rgba(0,196,140,0.22);
+}
+.card.b2 .tag { color: var(--accent2); background: rgba(26,114,232,0.08); border-color: rgba(26,114,232,0.22); }
+.card.bw .tag { color: var(--warn);    background: rgba(122,80,10,0.08);   border-color: rgba(122,80,10,0.22); }
+.card.br .tag { color: var(--danger);  background: rgba(168,40,40,0.08);   border-color: rgba(168,40,40,0.22); }
+.card.bd .tag { color: var(--text-dim);background: rgba(110,126,148,0.08); border-color: rgba(110,126,148,0.22); }
+
+.card h4 { font-size: 13.5px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin-bottom: 10px; line-height: 1.3; }
+
+.card ul { list-style: none; flex: 1; }
+.card ul li {
+  font-size: 12.5px; color: var(--text-mid);
+  padding: 3.5px 0 3.5px 13px; position: relative;
+  line-height: 1.6; border-bottom: 1px solid var(--light-lo);
+}
+.card ul li:last-child { border-bottom: none; }
+.card ul li::before { content: "·"; position: absolute; left: 0; color: var(--accent); font-size: 15px; line-height: 1.45; font-weight: 700; }
+.card.b2 ul li::before { color: var(--accent2); }
+.card.bw ul li::before { color: var(--warn); }
+.card.br ul li::before { color: var(--danger); }
+.card.bd ul li::before { color: var(--text-dim); }
+
+.hi { color: var(--text); font-weight: 600; }
+.cd { font-family: var(--mono); font-size: 11px; background: var(--light-lo); border: 1px solid var(--light-bdr); border-radius: 3px; padding: 1px 5px; color: var(--text-mid); }
+.badge { display: inline-block; font-family: var(--mono); font-size: 10.5px; font-weight: 700; font-variant-numeric: tabular-nums; padding: 1px 7px; border-radius: 3px; margin: 0 1px; white-space: nowrap; }
+.badge.g { color: var(--accent);  background: rgba(0,196,140,0.1);  border: 1px solid rgba(0,196,140,0.22); }
+.badge.b { color: var(--accent2); background: rgba(26,114,232,0.1); border: 1px solid rgba(26,114,232,0.22); }
+.badge.n { color: var(--text-mid);background: var(--light-lo);      border: 1px solid var(--light-bdr); }
+
+.mrow { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--light-lo); }
+.m { display: flex; flex-direction: column; gap: 2px; }
+.m .mv { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; }
+.m .mv.g { color: var(--accent); }
+.m .mv.b { color: var(--accent2); }
+.m .ml { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); font-family: var(--mono); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--dark);
+  padding: 64px 40px;
+  border-top: 1px solid var(--dark-bdr);
+}
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+.footer-name { font-size: clamp(24px, 4vw, 40px); font-weight: 700; color: var(--text-on-dark-hi); letter-spacing: -0.03em; margin-bottom: 8px; }
+.footer-role { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-on-dark-dim); }
+.footer-links { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+.footer-link {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
+  color: var(--text-on-dark); text-decoration: none;
+  border: 1px solid var(--dark-bdr); border-radius: 4px; padding: 8px 14px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.footer-link:hover { border-color: var(--accent); color: var(--accent); }
+.footer-link .licon { font-size: 14px; }
+.footer-copy { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--dark-bdr); font-family: var(--mono); font-size: 10.5px; color: var(--text-on-dark-dim); letter-spacing: 0.05em; }
+
+/* responsive */
+@media (max-width: 780px) {
+  nav { padding: 0 20px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { padding: calc(var(--nav-h) + 40px) 20px 60px; }
+  .hero-stats { flex-direction: column; width: 100%; }
+  .hs { border-right: none; border-bottom: 1px solid var(--dark-bdr); }
+  .hs:last-child { border-bottom: none; }
+  .about { padding: 60px 20px; }
+  .about-inner { grid-template-columns: 1fr; gap: 36px; }
+  .project { padding: 60px 20px; }
+  .project-hd { grid-template-columns: 1fr; }
+  .project-hd .pj-meta { text-align: left; }
+  .project-hd .pj-desc { text-align: left; max-width: none; }
+  .project-overview { grid-template-columns: 1fr 1fr; }
+  .cg2, .cg3, .cga { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-links { align-items: flex-start; }
+  .footer { padding: 48px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker { animation: none; }
+  .scroll-hint::after { animation: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-name">kimchanhee<span>.dev</span></div>
+  <div class="nav-links">
+    <a href="#about">소개</a>
+    <a href="#project">프로젝트</a>
+    <a href="#contact" class="nav-cta">연락하기</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">iOS Developer</div>
+    <h1>
+      김찬희
+      <span class="role">문제를 추적하고, 구조로 해결하는 iOS 개발자</span>
+    </h1>
+    <p class="hero-desc">
+      GPS 기반 라이브 세션, 대용량 운동 데이터 처리, 실시간 시각화까지 <br>
+      — 성능 병목을 직접 찾아내고, 수치로 증명하는 방식으로 개발합니다.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hs">
+        <div class="hv"><span class="ga">90%</span></div>
+        <div class="hl">메모리 사용량 절감</div>
+      </div>
+      <div class="hs">
+        <div class="hv"><span class="ga">40%</span></div>
+        <div class="hl">CPU 사용량 절감</div>
+      </div>
+      <div class="hs">
+        <div class="hv">A16→A14</div>
+        <div class="hl">구동 사양 확장</div>
+      </div>
+    </div>
+
+    <div class="ticker-wrap" style="margin-top:40px;">
+      <div class="ticker">
+        <span class="ticker-item hi">Swift</span>
+        <span class="ticker-item">SwiftUI</span>
+        <span class="ticker-item">Combine</span>
+        <span class="ticker-item hi">TCP / UDP Socket</span>
+        <span class="ticker-item">SQLite · FMDB</span>
+        <span class="ticker-item hi">GPS · CoreLocation</span>
+        <span class="ticker-item">MVVM</span>
+        <span class="ticker-item">UIKit</span>
+        <span class="ticker-item hi">Instruments</span>
+        <span class="ticker-item hi">XCTest · UITest</span>
+        <span class="ticker-item">Localazy</span>
+        <span class="ticker-item">CoreMotion</span>
+        <!-- 반복 -->
+        <span class="ticker-item hi">Swift</span>
+        <span class="ticker-item">SwiftUI</span>
+        <span class="ticker-item">Combine</span>
+        <span class="ticker-item hi">TCP / UDP Socket</span>
+        <span class="ticker-item">SQLite · FMDB</span>
+        <span class="ticker-item hi">GPS · CoreLocation</span>
+        <span class="ticker-item">MVVM</span>
+        <span class="ticker-item">UIKit</span>
+        <span class="ticker-item hi">Instruments</span>
+        <span class="ticker-item hi">XCTest · UITest</span>
+        <span class="ticker-item">Localazy</span>
+        <span class="ticker-item">CoreMotion</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint">스크롤하여 프로젝트 보기</div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <p class="about-label">About</p>
+      <h2>성능을 수치로<br>증명하는 개발자</h2>
+      <p style="margin-top:12px;">Instruments로 병목을 직접 분석하고, 데이터 처리 전반의 구조를 개선하여 CPU 사용량 40%, 메모리 사용량 90%를 절감했습니다. 구조적 개선이 제품의 성능뿐 아니라 지원 가능한 하드웨어 범위까지 바꿀 수 있다는 것을 현업에서 경험했습니다.</p>
+      <p style="margin-top:12px;">GPS 기반 실시간 스포츠 데이터 처리, TCP/UDP 소켓 레이어, 대용량 데이터 저장 구조, SwiftUI + Combine 기반 단방향 데이터 흐름, 다국어 인프라, 테스트 환경 구축까지 — 운영 중인 서비스를 이어받아 시스템 아키텍처와 구조적 문제를 하나씩 개선하며 제품과 함께 성장했습니다.</p>
+      <p style="margin-top:12px;">임베디드 펌웨어와 BLE 통신 개발 경험을 바탕으로 디바이스부터 애플리케이션까지 이어지는 데이터 흐름을 이해하고 있으며, AI 도구로 개선 가설을 빠르게 검증하되 최종 판단은 실제 측정값을 기준으로 합니다. 개선이 제품의 성능과 품질 향상으로 이어지는 것을 중요하게 생각합니다.</p>
+    </div>
+    <div>
+      <p class="stack-label">기술 스택</p>
+      <p style="font-size:16px; font-weight:600; color:var(--text); line-height:1.6; margin-top:4px;">프레임워크보다 문제를 먼저 이해하고, <br> 상황에 맞는 구조를 설계하고 기술을 선택합니다.</p>
+      <div style="margin-top:24px;" class="stack-grid">
+        <div class="stack-group sg">
+          <div class="stack-cat">Language · Framework</div>
+          <div class="stack-row">
+            <span class="chip key">Swift</span>
+            <span class="chip">SwiftUI</span>
+            <span class="chip">UIKit</span>
+            <span class="chip key">Combine</span>
+            <span class="chip">MVVM</span>
+          </div>
+        </div>
+        <div class="stack-group sb">
+          <div class="stack-cat">Data · Network</div>
+          <div class="stack-row">
+            <span class="chip key">TCP / UDP Socket</span>
+            <span class="chip key">SQLite · FMDB</span>
+            <span class="chip">REST API</span>
+            <span class="chip">AWS S3</span>
+          </div>
+        </div>
+        <div class="stack-group sg">
+          <div class="stack-cat">Sensor · Location</div>
+          <div class="stack-row">
+            <span class="chip key">GPS</span>
+            <span class="chip">CoreLocation</span>
+            <span class="chip">CoreMotion</span>
+            <span class="chip">WGS84</span>
+          </div>
+        </div>
+        <div class="stack-group sb">
+          <div class="stack-cat">Quality · Tooling</div>
+          <div class="stack-row">
+            <span class="chip key">Instruments</span>
+            <span class="chip key">XCTest</span>
+            <span class="chip">UITest</span>
+            <span class="chip">Localazy</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="stack-cat">Tools</div>
+          <div class="stack-row">
+            <span class="chip key">Git · Github Action</span>
+            <span class="chip">Tuist</span>
+            <span class="chip">Jira</span>
+            <span class="chip">Claude Code</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="stack-cat">Background</div>
+          <div class="stack-row">
+            <span class="chip">Embedded Firmware</span>
+            <span class="chip">BLE</span>
+            <span class="chip">C / C++</span>
+            <span class="chip">ARM Cortex-M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECT ─── -->
+<section class="project" id="project">
+  <div class="project-inner">
+
+    <div class="project-hd">
+      <div>
+        <p class="pj-label">Project · 2025.02 – 2026.06 · Fitogether</p>
+        <h2>Fitogether Live</h2>
+        <p class="pj-tagline">GPS 기반 실시간 스포츠 데이터<br>분석 및 라이브 모니터링 iOS 앱</p>
+      </div>
+      <div class="pj-meta">
+        <p class="pj-period">1,019 commits · 약 17개월</p>
+        <div class="pj-version">v1.6 → v1.13</div>
+        <div class="pj-scale">+74,183줄 순 증가 &nbsp;·&nbsp; 266개 신규 Swift 파일</div>
+      </div>
+    </div>
+
+    <div class="project-overview">
+      <div class="ov-item">
+        <div class="ov-label">Environment</div>
+        <div class="ov-val">
+          <strong>GPS · TCP/UDP · SQLite · SwiftUI · Combine</strong><br>
+          실시간 운동 데이터 수집·분석·시각화
+        </div>
+      </div>
+      <div class="ov-item">
+        <div class="ov-label">Role</div>
+        <div class="ov-val">
+          실시간 데이터 처리 파이프라인, DB 저장 구조, 소켓 레이어, 성능 최적화, 다국어·테스트 인프라까지 <strong>서비스 전반 개선</strong>
+        </div>
+      </div>
+      <div class="ov-item">
+        <div class="ov-label">Impact</div>
+        <div class="ov-val">
+          <strong>CPU -40% · Memory -90% · A16 → A14</strong><br>
+          운영 중인 서비스를 안정성과 확장성 중심으로 개선
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- 성능 개선 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot"></div><h3>성능 및 안정성 개선</h3></div>
+      <div class="cgrid cg3">
+
+        <div class="card">
+          <div class="tag">Memory · DB</div>
+          <h4>대용량 운동 데이터 저장 성능 개선</h4>
+          <ul>
+            <li>실시간 누적 데이터 저장 시 DB 쓰기 backlog 누적으로 메모리 급증 문제 발견</li>
+            <li><span class="hi">DispatchSemaphore</span>로 backlog 상한 제한 — 대기열 누적으로 인한 메모리 증가 방지</li>
+            <li><span class="hi">Batch Transaction + Parameterized Query</span>로 활동 임포트 시 DB I/O를 행 단위→1회로 압축, statement 캐시 재사용</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv g">90%</span><span class="ml">메모리 절감</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tag">CPU · 구동 사양</div>
+          <h4>실시간 데이터 처리 CPU 부하 절감</h4>
+          <ul>
+            <li>Instruments로 가속도 계산 과정의 반복적 자료구조 연산 비용 병목 확인</li>
+            <li><span class="hi">Deque 기반 구조</span>로 전환 + DB 접근 방식 개선으로 CPU 사용량 절감</li>
+            <li>A16 기반 장비에서만 가능하던 기능을 <span class="hi">A14 기반 장비까지 지원</span></li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv g">40%</span><span class="ml">CPU 절감</span></div>
+            <div class="m"><span class="mv">A14</span><span class="ml">최소 사양 확장</span></div>
+          </div>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">Memory · SwiftUI</div>
+          <h4>라이브 세션 메모리 누수 방지</h4>
+          <ul>
+            <li>SwiftUI body 재평가마다 ViewModel이 재생성되어 Combine 구독이 장시간 누적 증가하는 문제 진단</li>
+            <li><span class="hi">ViewModel 캐싱 구조</span>로 전환, <span class="cd">cancellables</span> Set 단일 관리로 구독 누적 차단</li>
+            <li>장시간 세션 환경에서의 OOM 위험 억제</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">OOM</span><span class="ml">위험 제거</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- 아키텍처 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot b"></div><h3>데이터 구조 개선 및 확장성 확보</h3></div>
+      <div class="cgrid cg2">
+
+        <div class="card">
+          <div class="tag">MetricMeta · 확장성</div>
+          <h4>지표 확장 비용 N파일 → 1파일로 축소</h4>
+          <ul>
+            <li>지표 추가 시 분산된 N개 파일(정의·DB·표시)을 모두 수정해야 하는 구조적 문제</li>
+            <li><span class="cd">MetricMeta</span>로 통합 — 신규 지표 추가 시 수정 파일 <span class="badge g">N개 → 1개</span></li>
+            <li>수백 개의 switch 분기를 <span class="hi">valueProvider 기반 구조</span>로 개선, 지표 확장 비용 감소</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv g">N→1</span><span class="ml">수정 파일 수</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tag">Dictionary · 조회 성능</div>
+          <h4>반복 선형 탐색 → O(1) 해시 조회 전환</h4>
+          <ul>
+            <li>매 패킷·렌더마다 <span class="cd">Array.first(where:)</span> O(n) 선형 탐색이 반복되어 비용 누적</li>
+            <li><span class="cd">byKey</span> / <span class="cd">byDbColumn</span> / <span class="cd">byDisplayName</span> 3개 Dictionary 인덱스를 앱 시작 시 한 번만 구축</li>
+            <li>모든 MetricMeta 조회를 <span class="badge g">O(1)</span> 해시 조회로 전환</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv g">O(1)</span><span class="ml">조회 복잡도</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- 실시간 분석 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot"></div><h3>선수 경기 데이터 실시간 분석 서비스 개발</h3></div>
+      <div class="cgrid cga">
+
+        <div class="card b2">
+          <div class="tag">GPS · Combine · SwiftUI</div>
+          <h4>실시간 경기 데이터 수집·분석·시각화</h4>
+          <ul>
+            <li>GPS 기반 디바이스로부터 수신되는 실시간 데이터를 수집·분석·시각화하는 기능 설계</li>
+            <li><span class="hi">Combine 단방향 이벤트 전파 구조</span> — 데이터 변경이 View까지 단방향으로 전달</li>
+            <li>SwiftUI + UIKit Custom UI 혼합으로 실시간 데이터 시각화 요구사항 대응</li>
+          </ul>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">GPS · Tactic Board · WGS84</div>
+          <h4>GPS 기반 전술 맵 전체 구현</h4>
+          <ul>
+            <li>선수 이동 경로를 실시간 렌더링하는 전술 맵 신규 설계</li>
+            <li><span class="hi">WGS84 좌표 변환</span> 내장 — GPS 위경도를 화면 픽셀 좌표로 직접 변환</li>
+            <li><span class="cd">GPSFieldView</span> 선수 위치 오버레이 + <span class="cd">PlayerTrajectoryView</span> 이동 경로 시각화</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">37</span><span class="ml">신규 파일</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tag">Sprint · 10Hz GPS</div>
+          <h4>스플릿 타임 판정 정밀도 개선</h4>
+          <ul>
+            <li>0.5초 스로틀 패킷 구조에서 스플릿 오차 <span class="badge n">±0.5초</span> 발생 확인</li>
+            <li>10Hz 원시 속도 샘플을 <span class="hi">0.1초 틱 단위로 적분 + 선형 보간</span>으로 스플릿 크로싱 시점 정밀 검출</li>
+            <li>공유 GPS 타임 앵커로 전 선수 GO 기준 시각 통일, Dictionary 선택 초기화로 렙 간 데이터 오염 방지</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv g">5–50ms</span><span class="ml">스플릿 오차</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- 네트워크 안정성 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot r"></div><h3>네트워크 및 소켓 안정성 개선</h3></div>
+      <div class="cgrid cg2">
+
+        <div class="card br">
+          <div class="tag">TCP · Crash Fix</div>
+          <h4>TCP V2 핸드셰이크 크래시 수정</h4>
+          <ul>
+            <li>5D셀 V2 펌웨어의 51바이트 미만 핸드셰이크 패킷에서 범위 외 인덱스 접근으로 크래시 발생</li>
+            <li><span class="cd">guard data.count >= 51</span> 길이 가드 삽입으로 크래시 방어</li>
+            <li>Set 기반 중복 로그 억제로 serial별 최초 1회만 기록, 로그 폭탄 방지</li>
+          </ul>
+        </div>
+
+        <div class="card bw">
+          <div class="tag">FTG · Watchdog · Backoff</div>
+          <h4>FTG 추출 무응답 자동 감지 및 재시도</h4>
+          <ul>
+            <li>배터리 방전·네트워크 단절 시 FTG 추출 중 앱이 무한 대기 상태에 빠지는 문제 해결</li>
+            <li><span class="hi">DispatchWorkItem 기반 60초 워치독</span> + 세대 카운터로 stale 타이머 오탐 방지</li>
+            <li><span class="hi">백오프 + 랜덤 지터 재시도</span>로 동시 재요청 버스트 분산</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="tag">API · Auth · Race Condition</div>
+          <h4>401 토큰 리프레시 중앙화</h4>
+          <ul>
+            <li>분산된 401 처리로 중복 리프레시 레이스 컨디션 발생, refresh 실패를 서버 장애와 구분 없이 로그아웃 처리</li>
+            <li><span class="cd">withTokenRefresh&lt;T&gt;</span> 단일 래퍼로 중앙화, <span class="cd">isRefreshing</span> 플래그로 중복 차단</li>
+            <li>401/400(토큰 만료) vs 5xx(서버 장애) 분리 — 불필요한 강제 로그아웃 방지</li>
+          </ul>
+        </div>
+
+        <div class="card br">
+          <div class="tag">Upload · Infinite Loop</div>
+          <h4>Activity 업로드 무한 루프 수정</h4>
+          <ul>
+            <li>업로드 실패 시 에러 분류 없이 무한 재시도 발생 — 서버 부하 및 배터리 소모</li>
+            <li>응답 본문 기반 도메인 에러 분류로 무한 재시도 차단</li>
+            <li><span class="cd">uploadKey</span>가 0일 때 버튼 비활성화로 재진입 방지</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- 인프라 / 기타 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot b"></div><h3>서비스 인프라 구축 및 기타</h3></div>
+      <div class="cgrid cga">
+
+        <div class="card b2">
+          <div class="tag">Localization · i18n · 3 Languages</div>
+          <h4>글로벌 배포 가능한 다국어 인프라 구축</h4>
+          <ul>
+            <li>하드코딩 한국어 문자열 전체를 교체하여 <span class="hi">한/영/일 3개 언어</span> 지원 체계 처음부터 설계</li>
+            <li>SDK locale 불일치 시 번역키 노출 문제를 <span class="hi">5개 번들 테이블 순회 폴백 체인</span>으로 방지</li>
+            <li>번역 파일 동기화 <span class="hi">Makefile 자동화</span>, 앱 진입 시 로딩 완료 후 UI 노출로 초기 깨짐 제거</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">3</span><span class="ml">지원 언어</span></div>
+          </div>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">UITest · Unit Test · Page Object</div>
+          <h4>테스트 인프라 구축</h4>
+          <ul>
+            <li>도메인별 <span class="hi">Unit Test 17종</span> — Activity, 다운로드 단위 변환, RPE 계산, 라이브 컨트롤 등</li>
+            <li><span class="hi">Page Object 패턴</span> 기반 UITest 29종 (Page 9개 + Flow 20개 E2E 시나리오)</li>
+            <li>의존성 역전 구조(<span class="cd">ActivitySyncing</span> 프로토콜)로 테스트 가능성 확보</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">17</span><span class="ml">Unit Test</span></div>
+            <div class="m"><span class="mv b">29</span><span class="ml">UITest Flow</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tag">Download · Batch · Validation</div>
+          <h4>대용량 활동 데이터 다운로드 구조 개선</h4>
+          <ul>
+            <li>일괄 요청 시 타임아웃 + UI 진행 상태 미반영 문제 해결</li>
+            <li><span class="hi">pageSize 단위 슬라이딩 윈도우</span>로 분할 요청, fetch→import→summary 3단계 진행률 실시간 반영</li>
+            <li>웹↔앱 단위 불일치(speed km/h→m/s) 발견 및 Debug-only <span class="hi">CSV 검증 도구</span> 구현</li>
+          </ul>
+        </div>
+
+        <div class="card bd">
+          <div class="tag">Diagnostic · mach_task · AP</div>
+          <h4>현장 진단 도구 개발</h4>
+          <ul>
+            <li><span class="cd">mach_task_basic_info</span> + <span class="cd">vm_statistics64</span> 직접 조회로 앱 RAM·시스템 메모리 상태를 앱 내 실시간 표시</li>
+            <li>TelnetManager로 AP에 진단 명령 전송 — 연결 장비 수·CPU·가동 시간 현장에서 즉시 확인</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER / CONTACT ─── -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-name">김찬희</div>
+      <div class="footer-role">iOS Developer · Fitogether</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:chanhihi55@gmail.com" class="footer-link">
+        <span class="licon">✉</span> chanhihi55@gmail.com
+      </a>
+      <a href="https://github.com/chanhihi" class="footer-link" target="_blank" rel="noopener">
+        <span class="licon">⌥</span> github.com/chanhihi
+      </a>
+    </div>
+  </div>
+  <div class="footer-inner" style="margin-top:0;padding-top:0;">
+    <p class="footer-copy">© 2026 Kim Chanhee · git log 전수 분석 + 실제 코드 확인 기반</p>
+  </div>
+</footer>
