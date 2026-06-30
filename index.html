@@ -102,6 +102,7 @@ nav {
   max-width: 520px;
   font-size: 16px; color: var(--text-on-dark);
   line-height: 1.75; margin-top: 24px;
+  text-wrap: balance; word-break: keep-all;
 }
 
 /* hero stats */
@@ -325,23 +326,38 @@ footer {
 
 /* responsive */
 @media (max-width: 780px) {
+  /* nav */
   nav { padding: 0 20px; }
   .nav-links a:not(.nav-cta) { display: none; }
+
+  /* hero */
   .hero { padding: calc(var(--nav-h) + 40px) 20px 60px; }
+  .hero h1 { font-size: 42px; letter-spacing: -0.03em; }
+  .hero h1 .role { font-size: 16px; word-break: keep-all; }
+  .hero-desc { font-size: 14px; }
   .hero-stats { flex-direction: column; width: 100%; }
-  .hs { border-right: none; border-bottom: 1px solid var(--dark-bdr); }
+  .hs { border-right: none; border-bottom: 1px solid var(--dark-bdr); padding: 16px 20px; }
   .hs:last-child { border-bottom: none; }
+  .hs .hv { font-size: 24px; }
+
+  /* about */
   .about { padding: 60px 20px; }
   .about-inner { grid-template-columns: 1fr; gap: 36px; }
+  .about p { word-break: keep-all; }
+
+  /* project */
   .project { padding: 60px 20px; }
-  .project-hd { grid-template-columns: 1fr; }
-  .project-hd .pj-meta { text-align: left; }
-  .project-hd .pj-desc { text-align: left; max-width: none; }
+  .project-hd { grid-template-columns: 1fr; gap: 16px; }
+  .project-hd .pj-meta { text-align: left; align-items: flex-start; }
+  .project-hd .pj-tagline { max-width: none; word-break: keep-all; }
   .project-overview { grid-template-columns: 1fr 1fr; }
   .cg2, .cg3, .cga { grid-template-columns: 1fr; }
+  .card ul li { word-break: keep-all; }
+
+  /* footer */
   .footer-inner { grid-template-columns: 1fr; }
   .footer-links { align-items: flex-start; }
-  .footer { padding: 48px 20px; }
+  footer { padding: 48px 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ticker { animation: none; }
@@ -369,7 +385,7 @@ footer {
       <span class="role">문제를 추적하고, 구조로 해결하는 iOS 개발자</span>
     </h1>
     <p class="hero-desc">
-      GPS 기반 라이브 세션, 대용량 운동 데이터 처리, 실시간 시각화까지 <br>
+      GPS 기반 라이브 세션, 대용량 운동 데이터 처리, 실시간 시각화까지
       — 성능 병목을 직접 찾아내고, 수치로 증명하는 방식으로 개발합니다.
     </p>
 
