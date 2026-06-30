@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>김찬희 — iOS Developer Portfolio</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -324,29 +329,35 @@ footer {
 .footer-link .licon { font-size: 14px; }
 .footer-copy { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--dark-bdr); font-family: var(--mono); font-size: 10.5px; color: var(--text-on-dark-dim); letter-spacing: 0.05em; }
 
-/* responsive */
+/* ─── RESPONSIVE ─── */
 @media (max-width: 780px) {
   /* nav */
   nav { padding: 0 20px; }
   .nav-links a:not(.nav-cta) { display: none; }
 
-  /* hero */
-  .hero { padding: calc(var(--nav-h) + 40px) 20px 60px; }
+  /* hero — full viewport height, centered */
+  .hero {
+    min-height: 100svh;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 40px) 20px 52px;
+    overflow: visible;
+  }
   .hero h1 { font-size: 42px; letter-spacing: -0.03em; }
-  .hero h1 .role { font-size: 16px; word-break: keep-all; }
-  .hero-desc { font-size: 14px; }
-  .hero-stats { flex-direction: column; width: 100%; }
-  .hs { border-right: none; border-bottom: 1px solid var(--dark-bdr); padding: 16px 20px; }
-  .hs:last-child { border-bottom: none; }
-  .hs .hv { font-size: 24px; }
+  .hero h1 .role { font-size: 16px; word-break: keep-all; margin-top: 8px; }
+  .hero-desc { font-size: 14px; margin-top: 16px; }
+  .hero-stats { margin-top: 24px; width: 100%; }
+  .hs { padding: 14px 18px; }
+  .hs .hv { font-size: 22px; }
+  .ticker-wrap { margin-top: 24px; }
+  .scroll-hint { margin-top: 20px; }
 
   /* about */
-  .about { padding: 60px 20px; }
-  .about-inner { grid-template-columns: 1fr; gap: 36px; }
+  .about { padding: 52px 20px; }
+  .about-inner { grid-template-columns: 1fr; gap: 32px; }
   .about p { word-break: keep-all; }
 
   /* project */
-  .project { padding: 60px 20px; }
+  .project { padding: 52px 20px; }
   .project-hd { grid-template-columns: 1fr; gap: 16px; }
   .project-hd .pj-meta { text-align: left; align-items: flex-start; }
   .project-hd .pj-tagline { max-width: none; word-break: keep-all; }
@@ -359,16 +370,56 @@ footer {
   .footer-links { align-items: flex-start; }
   footer { padding: 48px 20px; }
 }
+
+/* landscape — 2-col: text left, stats right */
+@media (max-width: 900px) and (max-height: 500px) {
+  .hero {
+    min-height: 100svh;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 20px) 24px 32px;
+    overflow: visible;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 28px;
+    align-items: center;
+    align-content: center;
+  }
+  .hero-inner > * { grid-column: 1; }
+  .hero h1 { font-size: 32px; letter-spacing: -0.03em; margin-bottom: 0; }
+  .hero h1 .role { font-size: 14px; margin-top: 6px; }
+  .hero-desc { font-size: 13px; margin-top: 10px; }
+  .hero-stats {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    flex-direction: column;
+    width: auto;
+    margin-top: 0;
+    align-self: center;
+  }
+  .hero-stats .hs {
+    border-right: none;
+    border-bottom: 1px solid var(--dark-bdr);
+    padding: 14px 20px;
+  }
+  .hero-stats .hs:last-child { border-bottom: none; }
+  .hs .hv { font-size: 20px; }
+  .ticker-wrap { display: none; }
+  .scroll-hint { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .ticker { animation: none; }
   .scroll-hint::after { animation: none; }
   html { scroll-behavior: auto; }
 }
 </style>
+</head>
+<body>
 
 <!-- ─── NAV ─── -->
 <nav>
-  <div class="nav-name">kimchanhee<span>.dev</span></div>
+  <a href="#" class="nav-name" style="text-decoration:none;">KimChanhee<span>.dev</span></a>
   <div class="nav-links">
     <a href="#about">소개</a>
     <a href="#project">프로젝트</a>
@@ -808,3 +859,6 @@ footer {
     <p class="footer-copy">© 2026 Kim Chanhee · git log 전수 분석 + 실제 코드 확인 기반</p>
   </div>
 </footer>
+
+</body>
+</html>
