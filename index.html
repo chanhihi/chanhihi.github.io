@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>김찬희 — iOS Developer Portfolio</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -102,6 +107,7 @@ nav {
   max-width: 520px;
   font-size: 16px; color: var(--text-on-dark);
   line-height: 1.75; margin-top: 24px;
+  text-wrap: balance; word-break: keep-all;
 }
 
 /* hero stats */
@@ -162,6 +168,7 @@ nav {
   animation: pulse-line 2s ease-in-out infinite;
 }
 @keyframes pulse-line { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+@keyframes swipe-up { 0%{transform:translateX(-50%) translateY(10px);opacity:0;} 40%{opacity:1;} 100%{transform:translateX(-50%) translateY(-4px);opacity:0;} }
 
 /* ─── ABOUT ─── */
 .about {
@@ -323,25 +330,114 @@ footer {
 .footer-link .licon { font-size: 14px; }
 .footer-copy { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--dark-bdr); font-family: var(--mono); font-size: 10.5px; color: var(--text-on-dark-dim); letter-spacing: 0.05em; }
 
-/* responsive */
+/* ─── RESPONSIVE ─── */
 @media (max-width: 780px) {
+  /* nav */
   nav { padding: 0 20px; }
   .nav-links a:not(.nav-cta) { display: none; }
-  .hero { padding: calc(var(--nav-h) + 40px) 20px 60px; }
-  .hero-stats { flex-direction: column; width: 100%; }
-  .hs { border-right: none; border-bottom: 1px solid var(--dark-bdr); }
-  .hs:last-child { border-bottom: none; }
-  .about { padding: 60px 20px; }
-  .about-inner { grid-template-columns: 1fr; gap: 36px; }
-  .project { padding: 60px 20px; }
-  .project-hd { grid-template-columns: 1fr; }
-  .project-hd .pj-meta { text-align: left; }
-  .project-hd .pj-desc { text-align: left; max-width: none; }
+
+  /* hero — full viewport height, centered */
+  .hero {
+    min-height: 100svh;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 40px) 20px 52px;
+    overflow: visible;
+  }
+  .hero h1 { font-size: 42px; letter-spacing: -0.03em; }
+  .hero h1 .role { font-size: 16px; word-break: keep-all; margin-top: 8px; }
+  .hero-desc { font-size: 14px; margin-top: 16px; }
+  .hero-stats { margin-top: 24px; width: 100%; }
+  .hs { padding: 14px 18px; }
+  .hs .hv { font-size: 22px; }
+  .ticker-wrap { margin-top: 24px; }
+  .hero-inner { position: static; }
+  /* swipe-up gesture indicator — fixed to bottom of hero */
+  .scroll-hint {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 0;
+  }
+  .scroll-hint::before {
+    content: "";
+    display: block;
+    width: 26px; height: 42px;
+    border: 2px solid var(--text-on-dark-dim);
+    border-radius: 13px;
+    position: relative;
+  }
+  .scroll-hint::after {
+    content: "";
+    position: absolute;
+    width: 4px; height: 8px;
+    background: var(--accent);
+    border-radius: 2px;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    animation: swipe-up 1.6s ease-in-out infinite;
+  }
+
+  /* about */
+  .about { padding: 52px 20px; }
+  .about-inner { grid-template-columns: 1fr; gap: 32px; }
+  .about p { word-break: keep-all; }
+
+  /* project */
+  .project { padding: 52px 20px; }
+  .project-hd { grid-template-columns: 1fr; gap: 16px; }
+  .project-hd .pj-meta { text-align: left; align-items: flex-start; }
+  .project-hd .pj-tagline { max-width: none; word-break: keep-all; }
   .project-overview { grid-template-columns: 1fr 1fr; }
   .cg2, .cg3, .cga { grid-template-columns: 1fr; }
+  .card ul li { word-break: keep-all; }
+
+  /* footer */
   .footer-inner { grid-template-columns: 1fr; }
   .footer-links { align-items: flex-start; }
-  .footer { padding: 48px 20px; }
+  footer { padding: 48px 20px; }
+}
+
+/* landscape — 2-col: text left, stats right */
+@media (max-width: 900px) and (max-height: 500px) {
+  .hero {
+    min-height: 100svh;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 20px) 24px 32px;
+    overflow: visible;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 28px;
+    align-items: center;
+    align-content: center;
+  }
+  .hero-inner > * { grid-column: 1; }
+  .hero h1 { font-size: 32px; letter-spacing: -0.03em; margin-bottom: 0; }
+  .hero h1 .role { font-size: 14px; margin-top: 6px; }
+  .hero-desc { font-size: 13px; margin-top: 10px; }
+  .hero-stats {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    flex-direction: column;
+    width: auto;
+    margin-top: 0;
+    align-self: center;
+  }
+  .hero-stats .hs {
+    border-right: none;
+    border-bottom: 1px solid var(--dark-bdr);
+    padding: 14px 20px;
+  }
+  .hero-stats .hs:last-child { border-bottom: none; }
+  .hs .hv { font-size: 20px; }
+  .ticker-wrap { margin-top: 16px; }
+  .scroll-hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ticker { animation: none; }
@@ -349,10 +445,12 @@ footer {
   html { scroll-behavior: auto; }
 }
 </style>
+</head>
+<body>
 
 <!-- ─── NAV ─── -->
 <nav>
-  <div class="nav-name">kimchanhee<span>.dev</span></div>
+  <a href="#" class="nav-name" style="text-decoration:none;">KimChanhee<span>.dev</span></a>
   <div class="nav-links">
     <a href="#about">소개</a>
     <a href="#project">프로젝트</a>
@@ -369,7 +467,7 @@ footer {
       <span class="role">문제를 추적하고, 구조로 해결하는 iOS 개발자</span>
     </h1>
     <p class="hero-desc">
-      GPS 기반 라이브 세션, 대용량 운동 데이터 처리, 실시간 시각화까지 <br>
+      GPS 기반 라이브 세션, 대용량 운동 데이터 처리, 실시간 시각화까지
       — 성능 병목을 직접 찾아내고, 수치로 증명하는 방식으로 개발합니다.
     </p>
 
@@ -561,7 +659,7 @@ footer {
           <ul>
             <li>Instruments로 가속도 계산 과정의 반복적 자료구조 연산 비용 병목 확인</li>
             <li><span class="hi">Deque 기반 구조</span>로 전환 + DB 접근 방식 개선으로 CPU 사용량 절감</li>
-            <li>A16 기반 장비에서만 가능하던 기능을 <span class="hi">A14 기반 장비까지 지원</span></li>
+            <li>구조 개선을 통해 iPhone 15급(A16)에서만 동작하던 기능을 <span class="hi">iPhone 12급(A14)까지 안정적으로 확장</span></li>
           </ul>
           <div class="mrow">
             <div class="m"><span class="mv g">40%</span><span class="ml">CPU 절감</span></div>
@@ -786,9 +884,15 @@ footer {
       <a href="https://github.com/chanhihi" class="footer-link" target="_blank" rel="noopener">
         <span class="licon">⌥</span> github.com/chanhihi
       </a>
+      <a href="https://chanhhh.tistory.com/" class="footer-link" target="_blank" rel="noopener">
+        <span class="licon">✍</span> chanhhh.tistory.com
+      </a>
     </div>
   </div>
   <div class="footer-inner" style="margin-top:0;padding-top:0;">
-    <p class="footer-copy">© 2026 Kim Chanhee · git log 전수 분석 + 실제 코드 확인 기반</p>
+    <p class="footer-copy">© 2026 Kim Chanhee</p>
   </div>
 </footer>
+
+</body>
+</html>
