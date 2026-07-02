@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>김찬희 — iOS Developer Portfolio</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +25,7 @@
   --text:       #1A2A3A;
   --text-mid:   #364D62;
   --text-dim:   #6E849A;
-  --warn:       #7A500A;
+  --warn:       #C47A1B;
   --danger:     #A82828;
   --mono: "SF Mono", ui-monospace, "Cascadia Mono", monospace;
   --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -239,15 +240,15 @@ nav {
 
 .ach-hd {
   display: flex; align-items: center; gap: 10px;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--light-bdr);
+  margin-bottom: 4px;
 }
 .ach-hd .ach-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 .ach-hd .ach-dot.b { background: var(--accent2); }
 .ach-hd .ach-dot.r { background: var(--danger); }
 .ach-hd .ach-dot.w { background: var(--warn); }
+.ach-hd .ach-dot.t { background: #14B8A6; }
 .ach-hd h3 { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.01em; }
+.ach-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--light-bdr); }
 
 /* card grid */
 .cgrid { display: grid; gap: 10px; }
@@ -263,6 +264,16 @@ nav {
   border-left: 3px solid var(--accent);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.card-vid {
+  margin: 14px -22px -20px;
+  border-top: 1px solid var(--light-lo);
+  overflow: hidden;
+}
+.card-vid video {
+  display: block; width: 100%; max-height: 200px;
+  object-fit: cover; cursor: zoom-in;
 }
 .card.b2 { border-left-color: var(--accent2); }
 .card.bw { border-left-color: var(--warn); }
@@ -276,7 +287,7 @@ nav {
   color: var(--accent); background: rgba(0,196,140,0.08); border: 1px solid rgba(0,196,140,0.22);
 }
 .card.b2 .tag { color: var(--accent2); background: rgba(26,114,232,0.08); border-color: rgba(26,114,232,0.22); }
-.card.bw .tag { color: var(--warn);    background: rgba(122,80,10,0.08);   border-color: rgba(122,80,10,0.22); }
+.card.bw .tag { color: var(--warn);    background: rgba(196,122,27,0.08);   border-color: rgba(196,122,27,0.22); }
 .card.br .tag { color: var(--danger);  background: rgba(168,40,40,0.08);   border-color: rgba(168,40,40,0.22); }
 .card.bd .tag { color: var(--text-dim);background: rgba(110,126,148,0.08); border-color: rgba(110,126,148,0.22); }
 
@@ -302,11 +313,34 @@ nav {
 .badge.b { color: var(--accent2); background: rgba(26,114,232,0.1); border: 1px solid rgba(26,114,232,0.22); }
 .badge.n { color: var(--text-mid);background: var(--light-lo);      border: 1px solid var(--light-bdr); }
 
-.mrow { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--light-lo); }
+.mrow { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--light-lo); }
+.img-thumb {
+  height: 44px; width: auto; border-radius: 5px;
+  border: 1px solid var(--light-bdr); cursor: zoom-in;
+  object-fit: cover; transition: opacity 0.15s;
+}
+.img-thumb:hover { opacity: 0.8; }
+.lb-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.82); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.lb-overlay.open { display: flex; }
+.lb-overlay img {
+  max-width: min(90vw, 900px); max-height: 88vh;
+  border-radius: 8px; box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+}
+.lb-close {
+  position: absolute; top: 20px; right: 24px;
+  font-size: 28px; color: rgba(255,255,255,0.7); cursor: pointer;
+  line-height: 1; background: none; border: none;
+}
+.lb-close:hover { color: #fff; }
 .m { display: flex; flex-direction: column; gap: 2px; }
 .m .mv { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; }
 .m .mv.g { color: var(--accent); }
 .m .mv.b { color: var(--accent2); }
+.m .mv.w { color: var(--warn); }
 .m .ml { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); font-family: var(--mono); }
 
 /* ─── FOOTER ─── */
@@ -516,7 +550,7 @@ footer {
       </div>
     </div>
 
-    <div class="scroll-hint">스크롤하여 프로젝트 보기</div>
+    <a href="#about" class="scroll-hint" style="text-decoration:none;">스크롤하여 프로젝트 보기</a>
   </div>
 </section>
 
@@ -542,6 +576,14 @@ footer {
             <span class="chip">UIKit</span>
             <span class="chip key">Combine</span>
             <span class="chip">MVVM</span>
+          </div>
+        </div>
+        <div class="stack-group sg">
+          <div class="stack-cat">Architecture</div>
+          <div class="stack-row">
+            <a href="https://chanhhh.tistory.com/258" target="_blank" rel="noopener" class="chip key" style="text-decoration:none;">Clean <span style="font-size:14px;">↗</span></a>
+            <a href="https://chanhhh.tistory.com/253" target="_blank" rel="noopener" class="chip" style="text-decoration:none;">Modular <span style="font-size:14px;">↗</span></a>
+            <a href="https://chanhhh.tistory.com/306" target="_blank" rel="noopener" class="chip" style="text-decoration:none;">TCA <span style="font-size:14px;">↗</span></a>
           </div>
         </div>
         <div class="stack-group sb">
@@ -638,6 +680,7 @@ footer {
     <!-- 성능 개선 -->
     <div class="ach-section">
       <div class="ach-hd"><div class="ach-dot"></div><h3>성능 및 안정성 개선</h3></div>
+      <p class="ach-desc">실제 서비스 운영 중 발생한 병목과 메모리 문제를 분석하고 개선했습니다.</p>
       <div class="cgrid cg3">
 
         <div class="card">
@@ -646,37 +689,38 @@ footer {
           <ul>
             <li>실시간 누적 데이터 저장 시 DB 쓰기 backlog 누적으로 메모리 급증 문제 발견</li>
             <li><span class="hi">DispatchSemaphore</span>로 backlog 상한 제한 — 대기열 누적으로 인한 메모리 증가 방지</li>
-            <li><span class="hi">Batch Transaction + Parameterized Query</span>로 활동 임포트 시 DB I/O를 행 단위→1회로 압축, statement 캐시 재사용</li>
+            <li><span class="hi">Batch Transaction + Parameterized Query</span> — 다중 세션 저장을 하나의 트랜잭션으로 처리 + statement 캐시 재사용</li>
           </ul>
           <div class="mrow">
             <div class="m"><span class="mv g">90%</span><span class="ml">메모리 절감</span></div>
           </div>
         </div>
 
-        <div class="card">
+        <div class="card b2">
           <div class="tag">CPU · 구동 사양</div>
-          <h4>실시간 데이터 처리 CPU 부하 절감</h4>
+          <h4>실시간 데이터 처리 성능 개선</h4>
           <ul>
-            <li>Instruments로 가속도 계산 과정의 반복적 자료구조 연산 비용 병목 확인</li>
-            <li><span class="hi">Deque 기반 구조</span>로 전환 + DB 접근 방식 개선으로 CPU 사용량 절감</li>
-            <li>구조 개선을 통해 iPhone 15급(A16)에서만 동작하던 기능을 <span class="hi">iPhone 12급(A14)까지 안정적으로 확장</span></li>
+            <li>Instruments로 가속도 계산 과정의 반복적 자료구조 연산 비용 O(n) 메서드 병목 확인</li>
+            <li><span class="hi">Deque 기반 구조</span>로 전환해 <span class="badge b">O(1)</span>로 개선하고, DB 접근 방식 개선으로 CPU 사용량 최적화</li>
+            <li>구조 개선을 통해 A16(iPhone 15급)에서만 동작하던 기능을 <span class="hi">A14(iPhone 12급)까지 안정적으로 확장</span></li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv g">40%</span><span class="ml">CPU 절감</span></div>
+            <div class="m"><span class="mv b">40%</span><span class="ml">CPU 절감</span></div>
+            <div class="m"><span class="mv">O(n→1)</span><span class="ml">복잡도 개선</span></div>
             <div class="m"><span class="mv">A14</span><span class="ml">최소 사양 확장</span></div>
           </div>
         </div>
 
-        <div class="card b2">
-          <div class="tag">Memory · SwiftUI</div>
-          <h4>라이브 세션 메모리 누수 방지</h4>
+        <div class="card bw">
+          <div class="tag">Memory · Combine · SwiftUI</div>
+          <h4>장시간 라이브 세션 메모리 누수 방지</h4>
           <ul>
-            <li>SwiftUI body 재평가마다 ViewModel이 재생성되어 Combine 구독이 장시간 누적 증가하는 문제 진단</li>
-            <li><span class="hi">ViewModel 캐싱 구조</span>로 전환, <span class="cd">cancellables</span> Set 단일 관리로 구독 누적 차단</li>
-            <li>장시간 세션 환경에서의 OOM 위험 억제</li>
+            <li>init·deinit 추적 로그를 추가해 SwiftUI body 재평가마다 <span class="hi">ViewModel</span>과 <span class="hi">Combine</span> 구독이 반복 생성되는 문제를 진단</li>
+            <li><span class="cd">ObjectIdentifier</span> 기반 <span class="hi">ViewModel 캐싱 구조</span>를 도입해 PlayerManager당 ViewModel 인스턴스를 하나로 유지</li>
+            <li>비활성 ViewModel 정리와 Combine 구독 해제로 장시간 라이브 세션의 OOM 위험 제거</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv b">OOM</span><span class="ml">위험 제거</span></div>
+            <div class="m"><span class="mv w">OOM</span><span class="ml">위험 제거</span></div>
           </div>
         </div>
 
@@ -686,7 +730,8 @@ footer {
 
     <!-- 아키텍처 -->
     <div class="ach-section">
-      <div class="ach-hd"><div class="ach-dot b"></div><h3>데이터 구조 개선 및 확장성 확보</h3></div>
+      <div class="ach-hd"><div class="ach-dot t"></div><h3>데이터 구조 개선 및 확장성 확보</h3></div>
+      <p class="ach-desc">지표 추가와 조회 비용을 줄이기 위해 데이터 구조를 재설계했습니다.</p>
       <div class="cgrid cg2">
 
         <div class="card">
@@ -702,16 +747,16 @@ footer {
           </div>
         </div>
 
-        <div class="card">
+        <div class="card b2">
           <div class="tag">Dictionary · 조회 성능</div>
           <h4>반복 선형 탐색 → O(1) 해시 조회 전환</h4>
           <ul>
             <li>매 패킷·렌더마다 <span class="cd">Array.first(where:)</span> O(n) 선형 탐색이 반복되어 비용 누적</li>
             <li><span class="cd">byKey</span> / <span class="cd">byDbColumn</span> / <span class="cd">byDisplayName</span> 3개 Dictionary 인덱스를 앱 시작 시 한 번만 구축</li>
-            <li>모든 MetricMeta 조회를 <span class="badge g">O(1)</span> 해시 조회로 전환</li>
+            <li>모든 MetricMeta 조회를 <span class="badge b">O(1)</span> 해시 조회로 전환</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv g">O(1)</span><span class="ml">조회 복잡도</span></div>
+            <div class="m"><span class="mv b">O(1)</span><span class="ml">조회 복잡도</span></div>
           </div>
         </div>
 
@@ -721,17 +766,21 @@ footer {
 
     <!-- 실시간 분석 -->
     <div class="ach-section">
-      <div class="ach-hd"><div class="ach-dot"></div><h3>선수 경기 데이터 실시간 분석 서비스 개발</h3></div>
+      <div class="ach-hd"><div class="ach-dot b"></div><h3>선수 경기 데이터 실시간 분석 서비스 개발</h3></div>
+      <p class="ach-desc">GPS 수신 데이터를 실시간으로 분석·시각화하는 핵심 기능을 직접 설계하고 구현했습니다.</p>
       <div class="cgrid cga">
 
         <div class="card b2">
           <div class="tag">GPS · Combine · SwiftUI</div>
           <h4>실시간 경기 데이터 수집·분석·시각화</h4>
           <ul>
-            <li>GPS 기반 디바이스로부터 수신되는 실시간 데이터를 수집·분석·시각화하는 기능 설계</li>
+            <li><span class="hi">SwiftUI + UIKit Custom UI 혼합</span>으로 실시간 데이터 시각화 요구사항 대응</li>
             <li><span class="hi">Combine 단방향 이벤트 전파 구조</span> — 데이터 변경이 View까지 단방향으로 전달</li>
-            <li>SwiftUI + UIKit Custom UI 혼합으로 실시간 데이터 시각화 요구사항 대응</li>
+            <li>다수 선수·지표의 실시간 수치 변화를 최적화하여 팀 리포트 화면에서 행잉 없는 사용자 경험 제공</li>
           </ul>
+          <div class="mrow">
+            <img class="img-thumb" src="img/ui-card1.png" alt="Team Report UI" onclick="openLb(this)">
+          </div>
         </div>
 
         <div class="card b2">
@@ -744,10 +793,11 @@ footer {
           </ul>
           <div class="mrow">
             <div class="m"><span class="mv b">37</span><span class="ml">신규 파일</span></div>
+            <video class="img-thumb" src="img/vid-gps.mp4" autoplay muted loop playsinline onclick="openLb(this)"></video>
           </div>
         </div>
 
-        <div class="card">
+        <div class="card b2">
           <div class="tag">Sprint · 10Hz GPS</div>
           <h4>스플릿 타임 판정 정밀도 개선</h4>
           <ul>
@@ -756,7 +806,7 @@ footer {
             <li>공유 GPS 타임 앵커로 전 선수 GO 기준 시각 통일, Dictionary 선택 초기화로 렙 간 데이터 오염 방지</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv g">5–50ms</span><span class="ml">스플릿 오차</span></div>
+            <div class="m"><span class="mv b">5–50ms</span><span class="ml">스플릿 오차</span></div>
           </div>
         </div>
 
@@ -767,6 +817,7 @@ footer {
     <!-- 네트워크 안정성 -->
     <div class="ach-section">
       <div class="ach-hd"><div class="ach-dot r"></div><h3>네트워크 및 소켓 안정성 개선</h3></div>
+      <p class="ach-desc">실시간 통신 환경에서 발생하는 장애와 예외 상황을 안정적으로 처리했습니다.</p>
       <div class="cgrid cg2">
 
         <div class="card br">
@@ -789,7 +840,7 @@ footer {
           </ul>
         </div>
 
-        <div class="card">
+        <div class="card bw">
           <div class="tag">API · Auth · Race Condition</div>
           <h4>401 토큰 리프레시 중앙화</h4>
           <ul>
@@ -816,9 +867,10 @@ footer {
     <!-- 인프라 / 기타 -->
     <div class="ach-section">
       <div class="ach-hd"><div class="ach-dot b"></div><h3>서비스 인프라 구축 및 기타</h3></div>
+      <p class="ach-desc">다국어 지원·테스트 인프라 등 서비스 품질과 유지보수성을 높이는 기반 작업을 담당했습니다.</p>
       <div class="cgrid cga">
 
-        <div class="card b2">
+        <div class="card">
           <div class="tag">Localization · i18n · 3 Languages</div>
           <h4>글로벌 배포 가능한 다국어 인프라 구축</h4>
           <ul>
@@ -827,11 +879,11 @@ footer {
             <li>번역 파일 동기화 <span class="hi">Makefile 자동화</span>, 앱 진입 시 로딩 완료 후 UI 노출로 초기 깨짐 제거</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv b">3</span><span class="ml">지원 언어</span></div>
+            <div class="m"><span class="mv g">3</span><span class="ml">지원 언어</span></div>
           </div>
         </div>
 
-        <div class="card b2">
+        <div class="card">
           <div class="tag">UITest · Unit Test · Page Object</div>
           <h4>테스트 인프라 구축</h4>
           <ul>
@@ -840,8 +892,8 @@ footer {
             <li>의존성 역전 구조(<span class="cd">ActivitySyncing</span> 프로토콜)로 테스트 가능성 확보</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv b">17</span><span class="ml">Unit Test</span></div>
-            <div class="m"><span class="mv b">29</span><span class="ml">UITest Flow</span></div>
+            <div class="m"><span class="mv g">17</span><span class="ml">Unit Test</span></div>
+            <div class="m"><span class="mv g">29</span><span class="ml">UITest Flow</span></div>
           </div>
         </div>
 
@@ -893,6 +945,38 @@ footer {
     <p class="footer-copy">© 2026 Kim Chanhee</p>
   </div>
 </footer>
+
+<div class="lb-overlay" id="lb" onclick="closeLb(event)">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <img id="lb-img" src="" alt="" style="display:none">
+  <video id="lb-vid" src="" autoplay muted loop playsinline style="display:none;max-width:min(90vw,900px);max-height:88vh;border-radius:8px;box-shadow:0 24px 64px rgba(0,0,0,0.6);"></video>
+</div>
+<script>
+function openLb(el) {
+  var isVideo = el.tagName === 'VIDEO';
+  var img = document.getElementById('lb-img');
+  var vid = document.getElementById('lb-vid');
+  img.style.display = isVideo ? 'none' : 'block';
+  vid.style.display = isVideo ? 'block' : 'none';
+  if (isVideo) { vid.src = el.src; vid.play(); }
+  else { img.src = el.src; }
+  document.getElementById('lb').classList.add('open');
+}
+function closeLb(e) {
+  var inner = document.getElementById('lb-img');
+  var vid = document.getElementById('lb-vid');
+  if (!e || (e.target !== inner && e.target !== vid)) {
+    document.getElementById('lb').classList.remove('open');
+    vid.pause();
+  }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('lb-vid').pause();
+  }
+});
+</script>
 
 </body>
 </html>
