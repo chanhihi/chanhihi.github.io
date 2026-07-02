@@ -776,38 +776,41 @@ footer {
           <h4>실시간 경기 데이터 수집·분석·시각화</h4>
           <ul>
             <li><span class="hi">SwiftUI + UIKit Custom UI 혼합</span>으로 실시간 데이터 시각화 요구사항 대응</li>
-            <li><span class="hi">Combine 단방향 이벤트 전파 구조</span> — 데이터 변경이 View까지 단방향으로 전달</li>
-            <li>다수 선수·지표의 실시간 수치 변화를 최적화하여 팀 리포트 화면에서 행잉 없는 사용자 경험 제공</li>
+            <li><span class="hi">Combine 기반 단방향 데이터 흐름</span>을 구성하여 상태 변경을 View까지 안정적으로 전달</li>
+            <li>다수 선수·328개 지표의 실시간 수치 변화에서도 팀 리포트 화면의 반응성 유지</li>
           </ul>
           <div class="mrow">
-            <img class="img-thumb" src="img/ui-card1.png" alt="Team Report UI" onclick="openLb(this)">
+            <div class="m"><span class="mv b">328</span><span class="ml">Live Metric</span></div>
+            <video class="img-thumb" src="img/vid-report.mp4" autoplay muted loop playsinline onclick="openLb(this)"></video>
           </div>
         </div>
 
         <div class="card b2">
-          <div class="tag">GPS · Tactic Board · WGS84</div>
-          <h4>GPS 기반 전술 맵 전체 구현</h4>
+          <div class="tag">GPS · Tactic Board · Canvas · Shape</div>
+          <h4>GPS 기반 상대 좌표 전술 맵 구현</h4>
           <ul>
-            <li>선수 이동 경로를 실시간 렌더링하는 전술 맵 신규 설계</li>
-            <li><span class="hi">WGS84 좌표 변환</span> 내장 — GPS 위경도를 화면 픽셀 좌표로 직접 변환</li>
-            <li><span class="cd">GPSFieldView</span> 선수 위치 오버레이 + <span class="cd">PlayerTrajectoryView</span> 이동 경로 시각화</li>
+            <li><span class="hi">GPS 위경도를 경기장 상대 좌표계로 변환</span>하여 실제 위치와 관계없이 동일한 기준의 전술 맵 구현</li>
+            <li>Canvas는 이동 경로 렌더링에, Shape(View)는 선수 마커에 적용하여 확대·축소 시에도 해상도 저하 없는 시각화 구현</li>
+            <li>선수별 이동 경로와 속도, 선수 간 거리를 cm 단위로 시각화하여 경기 흐름과 공간 활용 분석을 지원</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv b">37</span><span class="ml">신규 파일</span></div>
+            <div class="m"><span class="mv b">Global</span><span class="ml">Support</span></div>
+            <div class="m"><span class="mv b">Relative</span><span class="ml">상대 좌표계</span></div>
             <video class="img-thumb" src="img/vid-gps.mp4" autoplay muted loop playsinline onclick="openLb(this)"></video>
           </div>
         </div>
 
         <div class="card b2">
-          <div class="tag">Sprint · 10Hz GPS</div>
+          <div class="tag">Sprint · GPS · Timing</div>
           <h4>스플릿 타임 판정 정밀도 개선</h4>
           <ul>
-            <li>0.5초 스로틀 패킷 구조에서 스플릿 오차 <span class="badge n">±0.5초</span> 발생 확인</li>
-            <li>10Hz 원시 속도 샘플을 <span class="hi">0.1초 틱 단위로 적분 + 선형 보간</span>으로 스플릿 크로싱 시점 정밀 검출</li>
-            <li>공유 GPS 타임 앵커로 전 선수 GO 기준 시각 통일, Dictionary 선택 초기화로 렙 간 데이터 오염 방지</li>
+            <li>GPS 필터링으로 인해 스플릿 타임이 실제보다 늦게 판정되는 문제를 분석</li>
+            <li>실시간 거리 계산 로직을 개선하여 <span class="hi">GPS 지연에 영향을 받지 않는 판정 구조</span>를 설계</li>
+            <li>스플릿 타임 오차를 <span class="badge n">5–50ms</span> 수준으로 줄여 보다 정확한 경기 분석을 지원</li>
           </ul>
           <div class="mrow">
-            <div class="m"><span class="mv b">5–50ms</span><span class="ml">스플릿 오차</span></div>
+            <div class="m"><span class="mv b">~1s → 5–50ms</span><span class="ml">Timing Error</span></div>
+            <video class="img-thumb" src="img/vid-sprint.mp4" autoplay muted loop playsinline onclick="openLb(this)"></video>
           </div>
         </div>
 
@@ -865,11 +868,31 @@ footer {
     </div>
 
 
-    <!-- 인프라 / 기타 -->
+    <!-- UX 개선 -->
     <div class="ach-section">
-      <div class="ach-hd"><div class="ach-dot b"></div><h3>서비스 인프라 구축 및 기타</h3></div>
-      <p class="ach-desc">다국어 지원·테스트 인프라 등 서비스 품질과 유지보수성을 높이는 기반 작업을 담당했습니다.</p>
+      <div class="ach-hd"><div class="ach-dot w"></div><h3>사용자 경험(UX) 개선</h3></div>
+      <p class="ach-desc">기술적인 문제가 사용자 경험에 직접 영향을 주는 지점을 찾아 개선했습니다.</p>
       <div class="cgrid cga">
+
+        <div class="card b2">
+          <div class="tag">WKWebView · JS Bridge · SwiftUI</div>
+          <h4>웹 설정 화면 네이티브 경험으로 개선</h4>
+          <ul>
+            <li>앱 내 웹 화면이 브라우저처럼 동작하는 이질감 해결 — JS 인젝션으로 rubber-band·context menu·viewport scale 완전 제거</li>
+            <li>설정 저장 이벤트를 JS→Native 브릿지로 수신, 저장 중 UI 잠금 + 15초 안전 타임아웃으로 무한 대기 방지</li>
+            <li>ViewController 재사용 구조로 화면 재진입 시 인증 재발급 없이 즉시 복원</li>
+          </ul>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">UIKit · SwiftUI · 음성인식</div>
+          <h4>선수 자각도(RPE) 입력 경험 개선</h4>
+          <ul>
+            <li>경기 직후 코치가 다수 선수의 피로도를 빠르게 기록해야 하는 현장 요구를 전용 화면으로 해결</li>
+            <li>ScrollView 내 슬라이더 조작 시 스크롤과 제스처가 충돌하는 문제를 방향 판별 로직으로 해결</li>
+            <li>음성 인식 기반 핸즈프리 노트 입력 지원 — 선수 목록·슬라이더·텍스트를 단일 화면에서 처리</li>
+          </ul>
+        </div>
 
         <div class="card">
           <div class="tag">Localization · i18n · 3 Languages</div>
@@ -896,16 +919,6 @@ footer {
             <div class="m"><span class="mv g">17</span><span class="ml">Unit Test</span></div>
             <div class="m"><span class="mv g">29</span><span class="ml">UITest Flow</span></div>
           </div>
-        </div>
-
-        <div class="card">
-          <div class="tag">Download · Batch · Validation</div>
-          <h4>대용량 활동 데이터 다운로드 구조 개선</h4>
-          <ul>
-            <li>일괄 요청 시 타임아웃 + UI 진행 상태 미반영 문제 해결</li>
-            <li><span class="hi">pageSize 단위 슬라이딩 윈도우</span>로 분할 요청, fetch→import→summary 3단계 진행률 실시간 반영</li>
-            <li>웹↔앱 단위 불일치(speed km/h→m/s) 발견 및 Debug-only <span class="hi">CSV 검증 도구</span> 구현</li>
-          </ul>
         </div>
 
         <div class="card bd">
