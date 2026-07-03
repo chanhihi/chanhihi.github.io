@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>김찬희 — iOS Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,8 +31,8 @@
   --text-dim:   #6E849A;
   --warn:       #C47A1B;
   --danger:     #A82828;
-  --mono: "SF Mono", ui-monospace, "Cascadia Mono", monospace;
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --sans: "Pretendard Variable", Pretendard, system-ui, sans-serif;
   --nav-h: 56px;
 }
 
@@ -95,18 +99,18 @@ nav {
 .hero h1 {
   font-size: clamp(52px, 8vw, 96px);
   font-weight: 700; color: var(--text-on-dark-hi);
-  line-height: 1.0; letter-spacing: -0.04em;
+  line-height: 1.0; letter-spacing: -0.03em;
   margin-bottom: 14px;
 }
 .hero h1 .role {
   display: block; font-size: clamp(18px, 3vw, 28px);
-  font-weight: 400; color: var(--text-on-dark);
+  font-weight: 400; color: #C8D8EA;
   letter-spacing: -0.01em; margin-top: 10px;
 }
 
 .hero-desc {
   max-width: 520px;
-  font-size: 16px; color: var(--text-on-dark);
+  font-size: 16px; color: #B8CCE0;
   line-height: 1.75; margin-top: 24px;
   text-wrap: balance; word-break: keep-all;
 }
@@ -132,9 +136,9 @@ nav {
 }
 .hs .hv .ga { color: var(--accent); }
 .hs .hl {
-  margin-top: 6px; font-size: 10px; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--text-on-dark-dim);
-  font-family: var(--mono);
+  margin-top: 6px; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.02em; color: #C8D8EA;
+  font-family: var(--sans);
 }
 
 /* ticker */
@@ -160,8 +164,8 @@ nav {
 /* scroll hint */
 .scroll-hint {
   margin-top: 48px; display: flex; align-items: center; gap: 10px;
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-on-dark-dim);
+  font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.06em;
+  color: var(--text-on-dark-dim);
 }
 .scroll-hint::after {
   content: ""; display: block; width: 1px; height: 32px;
@@ -179,11 +183,11 @@ nav {
 .about-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
 
 .about-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
-.about h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 18px; line-height: 1.2; }
+.about h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin-bottom: 18px; line-height: 1.2; }
 .about p { font-size: 14.5px; color: var(--text-mid); line-height: 1.8; }
 .about p + p { margin-top: 12px; }
 
-.stack-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
+.stack-label { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
 .stack-grid { display: flex; flex-direction: column; gap: 14px; }
 .stack-row { display: flex; flex-wrap: wrap; gap: 7px; }
 .stack-group { padding-left: 0; }
@@ -221,7 +225,7 @@ nav {
 .project-hd .pj-meta { text-align: right; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
 .project-hd .pj-period { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; }
 .project-hd .pj-version { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
-.project-hd .pj-scale { font-family: var(--mono); font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.05em; }
+.project-hd .pj-scale { font-family: var(--sans); font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.02em; }
 
 .project-overview {
   background: var(--light-bg);
@@ -281,7 +285,7 @@ nav {
 .card.bd { border-left-color: var(--light-bdr); }
 
 .tag {
-  display: inline-block; font-family: var(--mono); font-size: 9.5px;
+  display: inline-block; font-family: var(--sans); font-size: 10px;
   letter-spacing: 0.09em; text-transform: uppercase; border-radius: 3px;
   padding: 2px 7px; margin-bottom: 9px;
   color: var(--accent); background: rgba(0,196,140,0.08); border: 1px solid rgba(0,196,140,0.22);
@@ -341,7 +345,7 @@ nav {
 .m .mv.g { color: var(--accent); }
 .m .mv.b { color: var(--accent2); }
 .m .mv.w { color: var(--warn); }
-.m .ml { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); font-family: var(--mono); }
+.m .ml { font-size: 11px; letter-spacing: 0.03em; color: var(--text-mid); font-family: var(--sans); }
 
 /* ─── FOOTER ─── */
 footer {
