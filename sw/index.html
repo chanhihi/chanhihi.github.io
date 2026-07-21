@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="펌웨어부터 실시간 애플리케이션까지, 데이터 흐름과 시스템 병목을 구조적으로 해결해 온 김찬희의 소프트웨어 엔지니어 포트폴리오">
+  <meta property="og:title" content="김찬희 — SW Engineer Portfolio">
+  <meta property="og:description" content="펌웨어, C++ 시스템, 실시간 데이터 처리와 측정 기반 최적화 경험">
+  <meta property="og:type" content="website">
+  <title>김찬희 — SW Engineer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root {
+      --bg: #080c14;
+      --surface: #0e1622;
+      --surface-2: #131d2c;
+      --line: #1e2d42;
+      --text: #e8f0fa;
+      --muted: #9dafc4;
+      --green: #00c48c;
+      --green-2: #57dfb8;
+      --blue: #1a72e8;
+      --dim: #4a6070;
+      --sans: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse 58% 40% at 84% 4%, rgba(0, 196, 140, .07), transparent 70%),
+        radial-gradient(ellipse 40% 35% at 8% 20%, rgba(26, 114, 232, .055), transparent 65%),
+        var(--bg);
+      font-family: var(--sans);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .mono { font-family: var(--mono); }
+    .green { color: var(--green); }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(8, 12, 20, .85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-name { color: var(--text); font: 400 14px var(--mono); text-decoration: none; letter-spacing: -.01em; }
+    .nav-name span { color: var(--green); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: var(--muted); font-size: 13px; text-decoration: none; letter-spacing: .01em; transition: color .15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { padding: 6px 14px; border-radius: 4px; color: var(--bg) !important; background: var(--green); font-size: 12.5px; font-weight: 600; letter-spacing: .02em; transition: opacity .15s !important; }
+    .nav-cta:hover { opacity: .88; }
+
+    .hero { padding: 116px 0 80px; border-bottom: 1px solid var(--line); }
+    .eyebrow { margin: 0 0 18px; color: var(--green); font: 700 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 900px; margin: 0; font-size: clamp(42px, 7vw, 78px); line-height: 1.08; letter-spacing: -.055em; }
+    .hero-copy { max-width: 750px; margin: 28px 0 0; color: #b8cce0; font-size: clamp(17px, 2.1vw, 21px); }
+    .hero-copy strong { color: var(--text); }
+    .truth-note { display: flex; gap: 10px; max-width: 760px; margin-top: 30px; padding: 15px 17px; border: 1px solid rgba(26, 114, 232, .34); background: rgba(26, 114, 232, .055); color: #b8cce0; font-size: 13px; }
+    .truth-note b { flex: 0 0 auto; color: #65a6ff; font-family: var(--mono); }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 60px; border: 1px solid var(--line); }
+    .metric { min-height: 126px; padding: 23px; border-right: 1px solid var(--line); background: rgba(14, 22, 34, .72); }
+    .metric:last-child { border-right: 0; }
+    .metric strong { display: block; color: var(--green-2); font: 700 clamp(25px, 4vw, 38px) var(--mono); letter-spacing: -.06em; }
+    .metric span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .metric small { color: var(--dim); font-size: 11px; }
+
+    section { padding: 88px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 56px; }
+    .section-head { display: grid; grid-template-columns: 220px 1fr; gap: 40px; margin-bottom: 40px; }
+    .section-num { color: var(--green); font: 12px var(--mono); letter-spacing: .12em; }
+    h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.2; letter-spacing: -.035em; }
+    .section-intro { max-width: 720px; margin: 14px 0 0; color: var(--muted); }
+
+    .evidence-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .card { padding: 27px; border: 1px solid var(--line); background: var(--surface); }
+    .card:hover { border-color: #31547d; background: var(--surface-2); }
+    .tag { color: var(--green); font: 700 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+    .card h3 { margin: 12px 0 13px; font-size: 20px; letter-spacing: -.02em; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .result { display: inline-flex; margin-top: 20px; padding: 4px 8px; border: 1px solid rgba(0, 196, 140, .3); color: var(--green-2); background: rgba(0, 196, 140, .07); font: 700 12px var(--mono); }
+    .project-link { display: inline-flex; margin-top: 18px; color: var(--green-2); font: 700 12px var(--mono); text-decoration: none; }
+    .project-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+    .principle { padding: 26px; border-right: 1px solid var(--line); }
+    .principle:last-child { border: 0; }
+    .principle b { display: block; margin-bottom: 10px; font: 700 14px var(--mono); color: var(--green-2); }
+    .principle p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .stack { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .stack-group { padding: 20px; border: 1px solid var(--line); background: var(--surface); }
+    .stack-group h3 { margin: 0 0 13px; color: var(--muted); font: 11px var(--mono); text-transform: uppercase; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { padding: 4px 7px; border: 1px solid var(--line); color: #c8d8ea; font: 11px var(--mono); }
+
+    .link-modal {
+      width: min(1320px, calc(100vw - 24px));
+      height: 80dvh;
+      max-width: none;
+      max-height: none;
+      margin: auto;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #31547d;
+      border-radius: 8px;
+      color: var(--text);
+      background: var(--surface);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .62);
+    }
+    .link-modal::backdrop { background: rgba(2, 5, 10, .82); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+    .modal-shell { display: grid; grid-template-rows: auto auto 1fr; height: 100%; }
+    .modal-head { display: flex; align-items: center; gap: 18px; min-height: 62px; padding: 11px 14px 11px 18px; border-bottom: 1px solid var(--line); }
+    .modal-heading { min-width: 0; flex: 1; }
+    .modal-kicker { display: block; color: var(--green); font: 700 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .modal-title { display: block; overflow: hidden; margin-top: 2px; font-size: 15px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .modal-actions { display: flex; align-items: center; gap: 8px; }
+    .modal-notice { max-width: 390px; margin: 0; color: var(--dim); font-size: 10.5px; line-height: 1.4; text-align: right; word-break: keep-all; }
+    .modal-external, .modal-close { border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--bg); font: 700 11px var(--mono); }
+    .modal-external { padding: 8px 11px; text-decoration: none; white-space: nowrap; }
+    .modal-external:hover { border-color: var(--green); color: var(--green-2); }
+    .modal-close { width: 34px; height: 34px; padding: 0; cursor: pointer; font-size: 20px; line-height: 1; }
+    .modal-close:hover { border-color: #65a6ff; color: var(--text); }
+    .modal-address { overflow: hidden; padding: 8px 18px; border-bottom: 1px solid var(--line); color: var(--dim); background: var(--bg); font: 10.5px var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+    .modal-body { position: relative; min-height: 0; background: #fff; }
+    .modal-frame { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+    .modal-preview { display: none; height: 100%; padding: clamp(30px, 7vw, 86px); overflow-y: auto; color: var(--text); background: radial-gradient(circle at 80% 10%, rgba(0, 196, 140, .08), transparent 35%), var(--surface); }
+    .modal-body.is-preview { background: var(--surface); }
+    .modal-body.is-preview .modal-frame { display: none; }
+    .modal-body.is-preview .modal-preview { display: flex; flex-direction: column; justify-content: center; }
+    .modal-preview-tag { color: var(--green); font: 700 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .modal-okr-label { margin-top: 24px; color: #65a6ff; font: 700 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .modal-preview-title { max-width: 760px; margin: 8px 0 18px; font-size: clamp(30px, 5vw, 58px); line-height: 1.12; letter-spacing: -.045em; }
+    .modal-preview-copy { max-width: 760px; margin: 0; color: var(--muted); font-size: clamp(15px, 2vw, 18px); }
+    .modal-kr { max-width: 760px; margin-top: 28px; }
+    .modal-kr .modal-okr-label { margin-top: 0; }
+    .modal-kr-list { display: grid; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+    .modal-kr-list li { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; padding: 10px 13px; border: 1px solid var(--line); background: rgba(8, 12, 20, .42); color: #c8d8ea; font-size: 14px; }
+    .modal-kr-index { color: var(--green); font: 700 10px var(--mono); letter-spacing: .06em; }
+    .modal-preview-note { max-width: 760px; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--dim); font: 11px/1.65 var(--mono); }
+    body.modal-open { overflow: hidden; }
+
+    footer { background: var(--bg); padding: 64px 40px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.65; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+    .footer-name { margin-bottom: 8px; color: var(--text); font-size: clamp(24px, 4vw, 40px); font-weight: 700; letter-spacing: -.03em; }
+    .footer-role { color: var(--dim); font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 240px; }
+    .footer-link { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-family: var(--mono); font-size: 12px; letter-spacing: .05em; text-decoration: none; transition: border-color .15s, color .15s; }
+    .footer-link:hover { border-color: var(--green); color: var(--green); }
+    .footer-link svg { flex-shrink: 0; }
+    .footer-copy { margin: 40px 0 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--dim); font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; }
+
+    @media (max-width: 800px) {
+      nav { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 96px 0 52px; }
+      .metrics, .evidence-grid, .principles, .stack { grid-template-columns: 1fr; }
+      .metric, .principle { border-right: 0; border-bottom: 1px solid var(--line); }
+      .metric:last-child, .principle:last-child { border-bottom: 0; }
+      .section-head { grid-template-columns: 1fr; gap: 10px; }
+    }
+
+    @media (max-width: 780px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-links { align-items: flex-start; }
+      footer { padding: 48px 20px; }
+      .link-modal { width: calc(100vw - 20px); height: 80dvh; }
+      .modal-head { flex-direction: column; align-items: stretch; gap: 7px; padding: 10px 12px; }
+      .modal-actions { width: 100%; }
+      .modal-notice { flex: 1; max-width: none; font-size: 9.5px; text-align: left; }
+      .modal-external { padding: 8px; font-size: 10px; }
+      .modal-title { font-size: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    @page { size: A4; margin: 12mm 11mm 13mm; }
+
+    @media print {
+      *, *::before, *::after { animation: none !important; transition: none !important; box-shadow: none !important; }
+      html, body {
+        width: auto; min-width: 0; overflow: visible;
+        color: #1a2a3a; background: #fff;
+        font-size: 9.5pt; line-height: 1.45;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      nav, .link-modal { display: none !important; }
+      p { orphans: 3; widows: 3; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: 100%; max-width: none; }
+
+      section { padding: 8mm 0; border-bottom: 1px solid #d4dce8; scroll-margin-top: 0; }
+      .hero { padding: 4mm 0 9mm; color: #1a2a3a; background: #fff; }
+      .eyebrow { margin-bottom: 4mm; color: #078a67; }
+      h1 { max-width: 165mm; color: #1a2a3a; font-size: 31pt; line-height: 1.06; }
+      .green { color: #078a67; }
+      .hero-copy { max-width: 160mm; margin-top: 5mm; color: #364d62; font-size: 10.5pt; line-height: 1.6; }
+      .hero-copy strong { color: #1a2a3a; }
+      .truth-note { max-width: 160mm; margin-top: 5mm; padding: 3mm 4mm; color: #364d62; background: #f2f5f9; border-color: #c7d7eb; font-size: 8.5pt; break-inside: avoid; }
+      .truth-note b { color: #1a72e8; }
+      .metrics { margin-top: 6mm; border-color: #d4dce8; break-inside: avoid; }
+      .metric { min-height: 0; padding: 4mm; background: #f2f5f9; border-right-color: #d4dce8; }
+      .metric strong { color: #078a67; font-size: 18pt; }
+      .metric span { margin-top: 1mm; color: #364d62; font-size: 8pt; }
+      .metric small { color: #6e849a; font-size: 7pt; }
+
+      .section-head { grid-template-columns: 35mm 1fr; gap: 6mm; margin-bottom: 6mm; break-inside: avoid; }
+      .section-num { color: #078a67; font-size: 8pt; }
+      h2 { color: #1a2a3a; font-size: 20pt; }
+      .section-intro { max-width: none; margin-top: 2mm; color: #6e849a; font-size: 9pt; }
+      .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3mm; }
+      .card {
+        padding: 4mm 4.5mm; overflow: visible;
+        color: #1a2a3a; background: #fff; border-color: #d4dce8;
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .card:hover { background: #fff; border-color: #d4dce8; }
+      .tag { color: #078a67; font-size: 7pt; }
+      .card h3 { margin: 2mm 0; color: #1a2a3a; font-size: 10pt; }
+      .card p { color: #364d62; font-size: 8.3pt; line-height: 1.5; }
+      .result { margin-top: 3mm; padding: .7mm 1.5mm; color: #078a67; background: #f0fbf7; border-color: #b9e7d8; font-size: 7.2pt; }
+      .project-link { margin-top: 2.5mm; color: #087d60; font-size: 7.5pt; }
+
+      .principles { grid-template-columns: repeat(3, 1fr); border-color: #d4dce8; break-inside: avoid; }
+      .principle { padding: 4mm; border-right-color: #d4dce8; }
+      .principle b { margin-bottom: 2mm; color: #078a67; font-size: 8pt; }
+      .principle p { color: #364d62; font-size: 7.5pt; }
+      .stack { grid-template-columns: repeat(2, 1fr); gap: 3mm; }
+      .stack-group { padding: 4mm; background: #fff; border-color: #d4dce8; break-inside: avoid; }
+      .stack-group h3 { margin-bottom: 2mm; color: #6e849a; font-size: 7.5pt; }
+      .chips { gap: 1.5mm; }
+      .chip { padding: .8mm 1.5mm; color: #364d62; border-color: #d4dce8; font-size: 7.5pt; }
+
+      footer {
+        min-height: 0;
+        display: block;
+        padding: 14mm 0 0; color: #1a2a3a; background: #fff; border-top: 0;
+        break-inside: avoid;
+      }
+      .footer-inner { width: 100%; max-width: none; }
+      .footer-name { color: #1a2a3a; font-size: 18pt; }
+      .footer-role, .footer-copy { color: #6e849a; }
+      .footer-links { min-width: 75mm; gap: 2mm; }
+      .footer-link { padding: 2mm 3mm; color: #364d62; border-color: #d4dce8; font-size: 8pt; }
+      .footer-copy { margin-top: 5mm; padding-top: 3mm; border-top-color: #d4dce8; }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="주요 메뉴">
+    <a class="nav-name" href="#top">KimChanhee<span>.Software</span></a>
+    <div class="nav-links">
+      <a href="#systems">소개</a>
+      <a href="#evidence">성과</a>
+      <a class="nav-cta" href="#contact">연락하기</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">펌웨어 · 시스템 소프트웨어 · 실시간 애플리케이션</p>
+        <h1>데이터의 흐름을 이해하고,<br><span class="green">병목을 구조로 해결합니다.</span></h1>
+        <p class="hero-copy">
+          ARM Cortex-M 펌웨어, C++ 비동기 HTTP 서버, macOS·iOS 제품과 GPS 기반 실시간 서비스를 개발하며
+          디바이스에서 통신·저장·사용자 인터페이스까지 이어지는 데이터 흐름을 다뤄 왔습니다.
+          <strong>문제를 수치로 설명하고, 실패 조건을 끝까지 추적하며, 동료가 운영할 수 있는 구조로 개선합니다.</strong>
+        </p>
+        <div class="truth-note">
+          <b>검증 기준</b>
+          <span>실무 측정 결과, App Store 배포, 수상 기록, 공개 저장소처럼 직접 확인할 수 있는 근거만 담았습니다.</span>
+        </div>
+        <div class="metrics" aria-label="검증된 실무 성과">
+          <div class="metric"><strong>3년 3개월</strong><span>소프트웨어 개발 경력</span><small>애플리케이션 · 펌웨어</small></div>
+          <div class="metric"><strong>-90%</strong><span>데이터 저장 메모리</span><small>Backpressure · Batch · Query Cache</small></div>
+          <div class="metric"><strong>-40%</strong><span>실시간 처리 CPU</span><small>O(n) → O(1) · A16 → A14</small></div>
+          <div class="metric"><strong>31K→170</strong><span>실시간 UI 객체 축소</span><small>96명 · 327지표 · 2Hz</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="systems">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-num">01 / 소프트웨어 경험</div>
+          <div>
+            <h2>디바이스부터 제품까지 잇는<br>소프트웨어 엔지니어링 경험</h2>
+            <p class="section-intro">제약이 큰 임베디드 환경, C/C++ 시스템 프로그래밍, Web↔Native 통합, 앱 설계·배포까지 서로 다른 계층에서 동작하는 소프트웨어를 구현했습니다.</p>
+          </div>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="card">
+            <div class="tag">실무 · 2020.01–2021.09</div>
+            <h3>ARM Cortex-M 펌웨어 개발</h3>
+            <p>C/C++로 Cortex-M0+ 베어메탈 펌웨어와 PSoC4 주변장치 제어를 구현했습니다. 스마트워치, 캠핑카 터치 패널, IR 리모컨, TPMS 테스트 도구를 개발하며 제한된 메모리와 HW–FW–App 연동 문제를 디버깅했습니다.</p>
+            <span class="result">C/C++ · 베어메탈 · BLE · 독자 프로토콜</span>
+          </article>
+          <article class="card">
+            <div class="tag">해커톤 수상 · 2023.10–2024.07</div>
+            <h3>42Box macOS 통합 플랫폼</h3>
+            <p>교육기관 내 여러 웹 서비스를 하나의 macOS 제품으로 통합했습니다. WebKit으로 FE·BE와 네이티브 기능을 연결하고, GitHub Actions 기반 릴리즈·버전 관리 자동화를 구축했습니다. 기획과 macOS 개발을 맡아 정보통신기획평가원장상을 수상했습니다.</p>
+            <span class="result">WebKit · 배포 자동화 · 정보통신기획평가원장상</span><br>
+            <a class="project-link" href="https://github.com/42Box/macOS" target="_blank" rel="noopener">macOS 저장소 보기 ↗</a>
+          </article>
+          <article class="card">
+            <div class="tag">프로젝트 리딩 · 2024.04–2024.07</div>
+            <h3>42Box iOS 제품 개발·배포</h3>
+            <p>macOS 제품을 iOS 사용 흐름에 맞게 확장하고 App Store에 배포했습니다. WKWebView 탐색, 폴더 기반 링크 관리, NSCache, Share Extension을 구현하고 Tuist 모듈 구성과 Fastlane·GitHub Actions 기반 TestFlight 배포 파이프라인을 구축했습니다.</p>
+            <span class="result">App Store · Share Extension · CI/CD</span><br>
+            <a class="project-link" href="https://github.com/42Box/iOS" target="_blank" rel="noopener">iOS 저장소 보기 ↗</a>
+            <a class="project-link" href="https://apps.apple.com/kr/app/42box/id6499335551" target="_blank" rel="noopener" style="margin-left:14px">App Store ↗</a>
+          </article>
+          <article class="card">
+            <div class="tag">팀 프로젝트 · C++98</div>
+            <h3>비동기 HTTP/1.1 웹 서버</h3>
+            <p>KQueue 이벤트 루프와 POSIX 소켓으로 다중 클라이언트 요청을 비동기 처리했습니다. HTTP 파싱, 주요 Method, CGI, 설정 파서를 인터페이스 중심으로 분리하고 Siege로 동시 요청을 검증했습니다.</p>
+            <span class="result">KQueue · POSIX · CGI · 부하 테스트</span><br>
+            <a class="project-link" href="https://github.com/MyLittleWebServer/webserv" target="_blank" rel="noopener">저장소 보기 ↗</a>
+          </article>
+          <article class="card">
+            <div class="tag">모듈화 · 3D 데이터 · 2024.02</div>
+            <h3>Swifty Proteins 구조 설계</h3>
+            <p>단백질 구조 데이터를 파싱해 리간드 위치를 계산하고 SceneKit으로 3D 시각화했습니다. Tuist 기반 모듈 구조와 프로토콜 인터페이스를 설계해 데이터 해석, 도메인 로직, 표현 계층의 책임을 분리했습니다.</p>
+            <span class="result">SceneKit · 데이터 파싱 · 모듈화 아키텍처</span><br>
+            <a class="project-link" href="https://github.com/chanheki/swifty-proteins" target="_blank" rel="noopener">저장소 보기 ↗</a>
+          </article>
+          <article class="card">
+            <div class="tag">42서울 · C 시스템</div>
+            <h3>프로세스·스레드·Unix 시스템 프로그래밍</h3>
+            <p>Philosophers에서 스레드 동기화와 교착 상태를, minishell과 pipex에서 fork·pipe·signal·file descriptor를 다뤘습니다. libft, printf, get_next_line을 직접 구현하며 표준 라이브러리 아래의 동작을 학습했습니다.</p>
+            <span class="result">pthread · mutex · fork · pipe · signal</span><br>
+            <a class="project-link" href="https://github.com/chanheki" target="_blank" rel="noopener">C/C++ 저장소 모아보기 ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-num">02 / 운영 성과</div>
+          <div>
+            <h2>실서비스에서 검증한<br>성능과 운영 안정성</h2>
+            <p class="section-intro">기능 구현에서 멈추지 않고 데이터의 입력부터 저장·표시·복구까지 추적했습니다. 실제 운영 환경에서 원인을 확인하고 개선한 결과입니다.</p>
+          </div>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="card">
+            <div class="tag">iOS UI · 2차원 가상화</div>
+            <h3>3만 셀 실시간 스프레드시트 재설계</h3>
+            <p>최대 96명과 327개 지표가 2Hz로 갱신되는 화면에서 SwiftUI View Graph와 스크롤 offset 동기화를 병목으로 확인했습니다. 하나의 UICollectionView와 Custom Layout으로 행·열을 함께 가상화하고, 고정 행·열은 contentOffset 기반으로 배치했습니다.</p>
+            <span class="result">31,392개 View → 화면 내 약 170개 Cell</span><br>
+            <a class="project-link" href="https://chanhhh.tistory.com/353" target="_blank" rel="noopener">리팩토링 기록 보기 ↗</a>
+          </article>
+          <article class="card">
+            <div class="tag">부분 갱신 · 화면 정합성</div>
+            <h3>상태 변화의 영향 범위별 갱신</h3>
+            <p>실시간 값은 현재 보이는 셀만 직접 갱신하고, 평균은 해당 section만 다시 불러오도록 범위를 줄였습니다. 벤칭·Goal 상태의 갱신 누락을 발견한 뒤에는 행, section, 전체 데이터 중 실제 영향 범위에 맞는 방식을 선택하도록 경계를 다시 설계했습니다.</p>
+            <span class="result">셀 직접 갱신 · 부분 reload · 전체 reload 분리</span>
+          </article>
+          <article class="card">
+            <div class="tag">알고리즘 · 프로파일링</div>
+            <h3>핫 패스의 O(n) 연산 제거</h3>
+            <p>Instruments로 매 데이터 처리마다 반복되는 선형 자료구조 연산을 병목으로 특정했습니다. Deque 기반 O(1) 구조와 DB 접근 개선을 적용해 낮은 사양에서도 안정적으로 동작하도록 만들었습니다.</p>
+            <span class="result">CPU -40% · O(n) → O(1) · A16 → A14</span>
+          </article>
+          <article class="card">
+            <div class="tag">역압 제어 · 메모리</div>
+            <h3>무제한 쓰기 대기열 제어</h3>
+            <p>실시간 누적 데이터의 DB 쓰기 속도가 입력을 따라가지 못해 대기열과 메모리가 함께 증가하는 문제를 분석했습니다. 큐 상한, batch transaction, prepared statement 재사용으로 흐름을 안정화했습니다.</p>
+            <span class="result">메모리 사용량 -90%</span>
+          </article>
+          <article class="card">
+            <div class="tag">TCP / UDP · 운영</div>
+            <h3>현장 통신 장애의 레이어 분리 진단</h3>
+            <p>장비 연결 불안정과 데이터 유실을 소켓 로그와 DB 기록으로 교차 분석했습니다. 셀·허브·AP 구간의 상태를 분리해 현장 방문 없이 장애 범위를 좁히고 수정 근거를 제공했습니다.</p>
+            <span class="result">운영 장애 원격 진단</span>
+          </article>
+          <article class="card">
+            <div class="tag">실시간 처리 · 시간 정확도</div>
+            <h3>지연 패킷 기반 시간 오차 보정</h3>
+            <p>약 0.5초 늦게 도착하는 GPS 패킷과 타이머 드리프트를 분리해 분석했습니다. 10Hz 속도 이력 적분과 구간 보간을 적용해 결과 오차를 줄였습니다.</p>
+            <span class="result">시간 오차 약 1초 → 5–50ms</span>
+          </article>
+          <article class="card">
+            <div class="tag">자동 복구 · 안정성</div>
+            <h3>타임아웃과 재시도의 세대 격리</h3>
+            <p>무응답 작업을 watchdog으로 감지하고, 세대 카운터로 과거 타이머가 현재 흐름을 중단하지 못하게 했습니다. backoff와 jitter로 동시 재시도 버스트도 분산했습니다.</p>
+            <span class="result">재시도 상한 · 과거 타이머 격리</span>
+          </article>
+          <article class="card">
+            <div class="tag">계측 · 현장 진단</div>
+            <h3>운영 상태를 직접 확인하는 진단 도구</h3>
+            <p>앱 메모리와 시스템 가용 메모리를 직접 조회하고, AP 상태와 GPS 품질을 현장에서 확인할 수 있게 만들었습니다. 장애가 발생한 뒤 추측하지 않고 당시 상태를 근거로 판단할 수 있도록 계측 범위를 넓혔습니다.</p>
+            <span class="result">메모리 · AP · GPS 현장 진단</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-num">03 / 일하는 방식</div>
+          <div>
+            <h2>문제를 숨기지 않고,<br>근거를 남기며 끝까지 개선합니다.</h2>
+            <p class="section-intro">구호보다 실제 문제를 해결할 때 반복해서 선택해 온 행동과 판단 기준을 정리했습니다.</p>
+          </div>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="card"><div class="tag">01 · 측정</div><h3>감이 아니라 숫자로 답합니다.</h3><p>Instruments와 로그로 병목 가설을 검증합니다. UI 구조를 바꾼 뒤 주요 비용이 View Graph 갱신에서 실제 평균값 계산으로 이동한 것까지 확인했고, CPU -40%, 메모리 -90%, 시간 오차 약 1초→5–50ms처럼 전후 조건과 결과를 남깁니다.</p></article>
+          <article class="card"><div class="tag">02 · 협업</div><h3>계층과 직군 사이의 경계를 연결합니다.</h3><p>HW·FW·App의 문제를 레이어별로 설명하고, 42Box에서는 FE·BE·디자인과 기획부터 배포까지 조율했습니다. 동료가 같은 모델로 이야기하고 안전하게 확장할 수 있는 구조를 선호합니다.</p></article>
+          <article class="card"><div class="tag">03 · 책임</div><h3>성능과 정확성을 함께 지킵니다.</h3><p>부분 갱신을 줄이는 과정에서 벤칭·Goal 상태가 일부 셀에 반영되지 않는 문제를 확인하고 갱신 범위를 다시 분류했습니다. OOM, 무응답, 오래된 타이머처럼 정상 경로 밖의 조건도 끝까지 추적합니다.</p></article>
+          <article class="card"><div class="tag">04 · 확장</div><h3>플랫폼보다 문제를 먼저 봅니다.</h3><p>펌웨어에서 C/C++ 시스템, Web↔Native, macOS·iOS 제품, 실시간 데이터로 영역을 확장했습니다. 기술 선택의 근거와 생성 결과를 직접 이해하고 측정으로 검증합니다.</p></article>
+        </div>
+
+        <div class="principles" style="margin-top:16px">
+          <div class="principle"><b>목표와 제약부터 전달</b><p>전략, 팀 목표, 운영 제약과 완료 조건을 먼저 정의하고 필요한 맥락만 AI에 제공합니다.</p></div>
+          <div class="principle"><b>비용을 의식해 위임</b><p>반복 작업은 맡기되 불필요한 에이전트·도구·컨텍스트를 줄여 시간과 비용을 통제합니다.</p></div>
+          <div class="principle"><b>판단과 책임은 직접</b><p>동시성, 메모리 모델, 운영 위험처럼 책임이 필요한 판단은 직접 이해하고 검토합니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-num">04 / 기술</div>
+          <div>
+            <h2>실무와 프로젝트에서 사용해 온 기술</h2>
+            <p class="section-intro">임베디드, 시스템 프로그래밍, Apple 플랫폼 제품, 실시간 서비스의 개발·배포·운영에 사용한 기술입니다.</p>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="stack-group"><h3>언어</h3><div class="chips"><span class="chip">Swift</span><span class="chip">C</span><span class="chip">C++</span></div></div>
+          <div class="stack-group"><h3>시스템 · 임베디드</h3><div class="chips"><span class="chip">POSIX</span><span class="chip">KQueue</span><span class="chip">pthread</span><span class="chip">TCP / UDP</span><span class="chip">ARM Cortex-M</span><span class="chip">BLE</span></div></div>
+          <div class="stack-group"><h3>제품 · 데이터</h3><div class="chips"><span class="chip">iOS</span><span class="chip">macOS</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">WebKit</span><span class="chip">SceneKit</span><span class="chip">Combine</span><span class="chip">SQLite</span></div></div>
+          <div class="stack-group"><h3>빌드 · 검증</h3><div class="chips"><span class="chip">Tuist</span><span class="chip">Fastlane</span><span class="chip">GitHub Actions</span><span class="chip">Instruments</span><span class="chip">XCTest</span><span class="chip">Siege</span></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="link-modal" id="link-modal" aria-labelledby="link-modal-title">
+    <div class="modal-shell">
+      <div class="modal-head">
+        <div class="modal-heading">
+          <span class="modal-kicker">Project preview</span>
+          <strong class="modal-title" id="link-modal-title">링크 미리보기</strong>
+        </div>
+        <div class="modal-actions">
+          <p class="modal-notice">외부 사이트의 보안 정책으로 내용이 보이지 않으면 ‘새 탭에서 열기’를 이용해 주세요.</p>
+          <a class="modal-external" id="link-modal-external" href="#" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
+          <button class="modal-close" id="link-modal-close" type="button" aria-label="미리보기 닫기">×</button>
+        </div>
+      </div>
+      <div class="modal-address" id="link-modal-address"></div>
+      <div class="modal-body" id="link-modal-content">
+        <iframe class="modal-frame" id="link-modal-frame" title="링크 미리보기" loading="lazy"></iframe>
+        <div class="modal-preview">
+          <span class="modal-preview-tag" id="link-modal-preview-tag">OKR</span>
+          <span class="modal-okr-label">Objective</span>
+          <h2 class="modal-preview-title" id="link-modal-preview-title"></h2>
+          <p class="modal-preview-copy" id="link-modal-preview-copy"></p>
+          <div class="modal-kr">
+            <div class="modal-okr-label">Key Results</div>
+            <ul class="modal-kr-list" id="link-modal-kr-list"></ul>
+          </div>
+          <p class="modal-preview-note">외부 사이트는 보안 정책상 이 화면 안에 직접 표시할 수 없어 프로젝트 요약을 제공합니다. 전체 내용은 상단의 ‘새 탭에서 열기’에서 확인할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-name">김찬희</div>
+        <div class="footer-role">Software Engineer · Systems and Applications</div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:chanhihi55@gmail.com" class="footer-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          chanhihi55@gmail.com
+        </a>
+        <a href="https://github.com/chanhihi" class="footer-link" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          github.com/chanhihi
+        </a>
+        <a href="https://chanhhh.tistory.com/" class="footer-link" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          chanhhh.tistory.com
+        </a>
+        <a href="../" class="footer-link" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          iOS.engineer
+        </a>
+      </div>
+    </div>
+    <div class="footer-inner" style="margin-top:0;padding-top:0;">
+      <p class="footer-copy">© 2026 Kim Chanhee</p>
+    </div>
+  </footer>
+  <script>
+    (() => {
+      const modal = document.getElementById('link-modal');
+      const frame = document.getElementById('link-modal-frame');
+      const title = document.getElementById('link-modal-title');
+      const address = document.getElementById('link-modal-address');
+      const external = document.getElementById('link-modal-external');
+      const closeButton = document.getElementById('link-modal-close');
+      const content = document.getElementById('link-modal-content');
+      const previewTag = document.getElementById('link-modal-preview-tag');
+      const previewTitle = document.getElementById('link-modal-preview-title');
+      const previewCopy = document.getElementById('link-modal-preview-copy');
+      const previewKrList = document.getElementById('link-modal-kr-list');
+
+      if (!modal || typeof modal.showModal !== 'function') return;
+
+      document.querySelectorAll('main a[href]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          const url = new URL(link.href, window.location.href);
+          if (!['http:', 'https:'].includes(url.protocol)) return;
+
+          event.preventDefault();
+
+          const card = link.closest('.card');
+          const cardTitle = card?.querySelector('h3')?.textContent.trim();
+          title.textContent = cardTitle || link.textContent.trim() || url.hostname;
+          address.textContent = url.href;
+          external.href = url.href;
+
+          const canEmbed = url.origin === window.location.origin || url.hostname === 'chanhhh.tistory.com';
+
+          if (canEmbed) {
+            content.classList.remove('is-preview');
+            frame.src = url.href;
+          } else {
+            content.classList.add('is-preview');
+            frame.src = 'about:blank';
+            const cardTag = card?.querySelector('.tag')?.textContent.trim() || url.hostname;
+            const keyResults = (card?.querySelector('.result')?.textContent.trim() || url.hostname)
+              .split('·')
+              .map((item) => item.trim())
+              .filter(Boolean);
+
+            previewTag.textContent = `OKR · ${cardTag}`;
+            previewTitle.textContent = cardTitle || link.textContent.trim() || url.hostname;
+            previewCopy.textContent = card?.querySelector('p')?.textContent.trim() || '외부 링크의 전체 내용을 새 탭에서 확인할 수 있습니다.';
+            previewKrList.replaceChildren(...keyResults.map((keyResult, index) => {
+              const item = document.createElement('li');
+              const number = document.createElement('span');
+              const value = document.createElement('span');
+              number.className = 'modal-kr-index';
+              number.textContent = `KR ${index + 1}`;
+              value.textContent = keyResult;
+              item.append(number, value);
+              return item;
+            }));
+          }
+
+          document.body.classList.add('modal-open');
+          modal.showModal();
+        });
+      });
+
+      closeButton.addEventListener('click', () => modal.close());
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) modal.close();
+      });
+      modal.addEventListener('close', () => {
+        frame.src = 'about:blank';
+        document.body.classList.remove('modal-open');
+      });
+    })();
+  </script>
+</body>
+</html>

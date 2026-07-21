@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>김찬희 — iOS Developer Portfolio</title>
+<title>김찬희 — iOS Engineer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
   --nav-h: 56px;
 }
 
-html { scroll-behavior: smooth; background: var(--dark); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; background: var(--dark); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.65; }
 body { overflow-x: hidden; }
 
 /* ─── NAV ─── */
@@ -51,7 +51,7 @@ nav {
   border-bottom: 1px solid var(--dark-bdr);
 }
 .nav-name {
-  font-size: 14px; font-weight: 700; color: var(--text-on-dark-hi);
+  font-size: 14px; font-weight: 400; color: var(--text-on-dark-hi);
   letter-spacing: -0.01em; font-family: var(--mono);
 }
 .nav-name span { color: var(--accent); }
@@ -346,6 +346,63 @@ nav {
 .m .mv.b { color: var(--accent2); }
 .m .mv.w { color: var(--warn); }
 .m .ml { font-size: 11px; letter-spacing: 0.03em; color: var(--text-mid); font-family: var(--sans); }
+.m-link { text-decoration: none; }
+.m-link .mv, .m-link .ml { transition: color 0.15s; }
+.m-link:hover .mv, .m-link:hover .ml { color: var(--accent2); }
+
+/* ─── LINK PREVIEW MODAL ─── */
+.link-modal {
+  width: min(1320px, calc(100vw - 24px));
+  height: 80dvh;
+  max-width: none; max-height: none;
+  margin: auto; padding: 0; overflow: hidden;
+  color: var(--text-on-dark-hi); background: var(--dark-surf);
+  border: 1px solid #31547D; border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.62);
+}
+.link-modal::backdrop {
+  background: rgba(2,5,10,0.82);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+}
+.link-modal-shell { display: grid; grid-template-rows: auto auto 1fr; height: 100%; }
+.link-modal-head {
+  min-height: 62px; padding: 11px 14px 11px 18px;
+  display: flex; align-items: center; gap: 18px;
+  border-bottom: 1px solid var(--dark-bdr);
+}
+.link-modal-heading { min-width: 0; flex: 1; }
+.link-modal-kicker {
+  display: block; color: var(--accent);
+  font: 700 10px var(--mono); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.link-modal-title {
+  display: block; overflow: hidden; margin-top: 2px;
+  font-size: 15px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap;
+}
+.link-modal-actions { display: flex; align-items: center; gap: 8px; }
+.link-modal-external, .link-modal-close {
+  color: var(--text-on-dark); background: var(--dark);
+  border: 1px solid var(--dark-bdr); border-radius: 4px;
+  font: 700 11px var(--mono);
+}
+.link-modal-external { padding: 8px 11px; text-decoration: none; }
+.link-modal-external:hover { color: var(--accent); border-color: var(--accent); }
+.link-modal-close { width: 34px; height: 34px; padding: 0; cursor: pointer; font-size: 20px; line-height: 1; }
+.link-modal-close:hover { color: var(--text-on-dark-hi); border-color: var(--accent2); }
+.link-modal-address {
+  overflow: hidden; padding: 8px 18px;
+  color: var(--text-on-dark-dim); background: var(--dark);
+  border-bottom: 1px solid var(--dark-bdr);
+  font: 10.5px var(--mono); text-overflow: ellipsis; white-space: nowrap;
+}
+.link-modal-body { position: relative; min-height: 0; background: #FFF; }
+.link-modal-frame { display: block; width: 100%; height: 100%; border: 0; background: #FFF; }
+.link-modal-notice {
+  max-width: 390px; margin: 0;
+  color: var(--text-on-dark-dim); font-size: 10.5px; line-height: 1.4;
+  text-align: right; word-break: keep-all;
+}
+body.modal-open { overflow: hidden; }
 
 /* ─── FOOTER ─── */
 footer {
@@ -438,6 +495,12 @@ footer {
   .footer-inner { grid-template-columns: 1fr; }
   .footer-links { align-items: flex-start; }
   footer { padding: 48px 20px; }
+  .link-modal { width: calc(100vw - 20px); height: 80dvh; }
+  .link-modal-head { flex-direction: column; align-items: stretch; gap: 7px; padding: 10px 12px; }
+  .link-modal-actions { width: 100%; }
+  .link-modal-notice { flex: 1; max-width: none; font-size: 9.5px; text-align: left; }
+  .link-modal-external { padding: 8px; font-size: 10px; }
+  .link-modal-title { font-size: 13px; }
 }
 
 /* landscape — 2-col: text left, stats right */
@@ -482,13 +545,132 @@ footer {
   .scroll-hint::after { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ─── PRINT / PDF ─── */
+@page { size: A4; margin: 12mm 11mm 13mm; }
+
+@media print {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+
+  html, body {
+    width: auto; min-width: 0;
+    overflow: visible;
+    color: var(--text); background: #FFF;
+    font-size: 9.5pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  nav, .ticker-wrap, .scroll-hint, .link-modal, .lb-overlay,
+  .img-thumb, .card-vid, video {
+    display: none !important;
+  }
+
+  p, li { orphans: 3; widows: 3; }
+  a { color: inherit; text-decoration: none; }
+
+  .hero {
+    min-height: 0;
+    display: block;
+    padding: 4mm 0 9mm;
+    overflow: visible;
+    color: var(--text); background: #FFF;
+    border-bottom: 1px solid var(--light-bdr);
+  }
+  .hero::before { display: none; }
+  .hero-inner { max-width: none; }
+  .hero-eyebrow { margin-bottom: 4mm; color: #078A67; }
+  .hero h1 {
+    margin-bottom: 0;
+    color: var(--text);
+    font-size: 32pt; line-height: 1.02; letter-spacing: -0.035em;
+  }
+  .hero h1 .role { margin-top: 3mm; color: var(--text-mid); font-size: 15pt; }
+  .hero-desc { max-width: 145mm; margin-top: 5mm; color: var(--text-mid); font-size: 10.5pt; line-height: 1.6; }
+  .hero-stats {
+    width: 100%; margin-top: 7mm;
+    border-color: var(--light-bdr); border-radius: 4px;
+    break-inside: avoid;
+  }
+  .hs { flex: 1; padding: 4mm 5mm; background: var(--light-bg); border-right-color: var(--light-bdr); }
+  .hs .hv { color: var(--text); font-size: 20pt; }
+  .hs .hl { color: var(--text-mid); font-size: 8pt; }
+
+  .about, .project { padding: 9mm 0; background: #FFF; }
+  .about-inner, .project-inner { max-width: none; }
+  .about-inner { grid-template-columns: 1fr 1fr; gap: 10mm; align-items: start; }
+  .about h2 { font-size: 20pt; }
+  .about p { color: var(--text-mid); font-size: 9pt; line-height: 1.55; }
+  .stack-grid { gap: 2.5mm; }
+  .stack-row { gap: 1.5mm; }
+  .chip { padding: 1mm 2.2mm; font-size: 7.5pt; background: #FFF; }
+
+  .project { border-top-color: var(--light-bdr); }
+  .project-hd {
+    margin-bottom: 6mm; padding-bottom: 5mm;
+    grid-template-columns: 1fr auto;
+    break-inside: avoid;
+  }
+  .project-hd h2 { font-size: 28pt; }
+  .project-hd .pj-tagline { max-width: 115mm; font-size: 10pt; }
+  .project-hd .pj-meta { align-items: flex-end; text-align: right; }
+  .project-overview {
+    margin-bottom: 8mm; padding: 5mm 6mm; gap: 5mm;
+    grid-template-columns: repeat(3, 1fr);
+    break-inside: avoid;
+  }
+  .ov-item .ov-val { font-size: 8.5pt; }
+
+  .ach-section { margin-bottom: 9mm; }
+  .ach-hd, .ach-desc { break-after: avoid; }
+  .ach-hd h3 { font-size: 10.5pt; }
+  .ach-desc { margin-bottom: 4mm; padding-bottom: 2.5mm; font-size: 8.5pt; }
+  .cgrid, .cg2, .cg3, .cga {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3mm;
+  }
+  .card {
+    padding: 4mm 4.5mm;
+    overflow: visible;
+    border-radius: 3px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .tag { margin-bottom: 2mm; padding: .5mm 1.5mm; font-size: 7pt; }
+  .card h4 { margin-bottom: 2mm; font-size: 9.5pt; }
+  .card ul li { padding: 1mm 0 1mm 3mm; font-size: 8.3pt; line-height: 1.48; }
+  .cd { padding: .2mm 1mm; font-size: 7.3pt; }
+  .badge { padding: .2mm 1.3mm; font-size: 7pt; }
+  .mrow { gap: 4mm; margin-top: 3mm; padding-top: 2.5mm; }
+  .m .mv { font-size: 12pt; }
+  .m .ml { font-size: 7pt; }
+
+  footer {
+    min-height: 247mm;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0;
+    color: var(--text); background: #FFF;
+    border-top: 0;
+    break-inside: avoid;
+  }
+  .footer-inner { width: 100%; max-width: none; }
+  .footer-name { color: var(--text); font-size: 18pt; }
+  .footer-role, .footer-copy { color: var(--text-dim); }
+  .footer-links { min-width: 75mm; gap: 2mm; }
+  .footer-link { padding: 2mm 3mm; color: var(--text-mid); border-color: var(--light-bdr); font-size: 8pt; }
+  .footer-copy { margin-top: 5mm; padding-top: 3mm; }
+}
 </style>
 </head>
 <body>
 
 <!-- ─── NAV ─── -->
 <nav>
-  <a href="#" class="nav-name" style="text-decoration:none;">KimChanhee<span>.dev</span></a>
+  <a href="#" class="nav-name" style="text-decoration:none;">KimChanhee<span>.iOS</span></a>
   <div class="nav-links">
     <a href="#about">소개</a>
     <a href="#project">프로젝트</a>
@@ -499,7 +681,7 @@ footer {
 <!-- ─── HERO ─── -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">iOS Developer</div>
+    <div class="hero-eyebrow">iOS Engineer</div>
     <h1>
       김찬희
       <span class="role">문제를 추적하고, 구조로 해결하는 iOS 개발자</span>
@@ -734,6 +916,62 @@ footer {
     </div>
 
 
+    <!-- 실시간 스프레드시트 View 최적화 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot b"></div><h3>실시간 스프레드시트 View 최적화</h3></div>
+      <p class="ach-desc">수만 개 셀을 유지하던 View 구조를 2차원 가상화로 전환하고, 상태 변화의 영향 범위에 맞춰 UI 갱신 경계를 재설계했습니다.</p>
+      <div class="cgrid cg3">
+
+        <div class="card b2">
+          <div class="tag">Objective · 목적</div>
+          <h4>대규모 실시간 리포트의 반응성 확보</h4>
+          <ul>
+            <li>최대 <span class="hi">96명 × 327개 지표</span>가 2Hz로 갱신되는 환경에서 끊김 없는 양방향 스크롤 제공</li>
+            <li>상단 2개 행과 첫 번째 열을 고정하는 Freeze Panes 동작을 유지하면서 View 생성 비용 최소화</li>
+            <li>부분 갱신 과정에서도 벤칭·Goal·정렬 등 기존 기능의 화면 정합성 보장</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">31,392</span><span class="ml">최대 Metric View</span></div>
+            <div class="m"><span class="mv">2Hz</span><span class="ml">Live Update</span></div>
+          </div>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">Execution · 실행</div>
+          <h4>View 가상화와 갱신 경계 재설계</h4>
+          <ul>
+            <li>Instruments로 스크롤 시 <span class="cd">ViewGraph</span> 갱신과 <span class="cd">ForEach</span> 순회가 반복되는 병목 확인</li>
+            <li>표 전체를 하나의 <span class="hi">UICollectionView</span>로 통합하고 행·열을 함께 가상화해 가시 셀만 생성·재사용</li>
+            <li>Custom Layout에서 <span class="cd">contentOffset</span> 기준으로 상단 2개 행과 첫 번째 열을 고정해 Freeze Panes 구현</li>
+            <li>실시간 값·평균·벤칭·표 구조 변경의 영향 범위를 분류해 직접 갱신, 부분 reload, 전체 reload로 구분</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv">2D</span><span class="ml">Virtualization</span></div>
+            <div class="m"><span class="mv">Scoped</span><span class="ml">UI Update</span></div>
+          </div>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">Key Results · 결과</div>
+          <h4>상시 View 99% 이상 감소</h4>
+          <ul>
+            <li>최악의 상황에서 최대 31,392개였던 상시 View를 화면에 보이는 <span class="hi">약 170개 셀</span>로 제한</li>
+            <li>여러 ScrollView의 Binding 동기화를 제거해 스크롤 중 SwiftUI body·레이아웃 연쇄 갱신 해소</li>
+            <li>Instruments의 주요 비용이 View Graph 갱신에서 실제 평균값 계산으로 이동하고, 부분 갱신에서도 화면 정합성 유지</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">99%+</span><span class="ml">상시 View 감소</span></div>
+            <div class="m"><span class="mv">≈170</span><span class="ml">Visible Cell</span></div>
+            <a href="https://chanhhh.tistory.com/353" class="m m-link" target="_blank" rel="noopener noreferrer">
+              <span class="mv b">LINK ↗</span><span class="ml">리팩토링 기록</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
     <!-- 아키텍처 -->
     <div class="ach-section">
       <div class="ach-hd"><div class="ach-dot t"></div><h3>데이터 구조 개선 및 확장성 확보</h3></div>
@@ -957,7 +1195,7 @@ footer {
   <div class="footer-inner">
     <div>
       <div class="footer-name">김찬희</div>
-      <div class="footer-role">iOS Developer · Fitogether</div>
+      <div class="footer-role">iOS Engineer · Fitogether</div>
     </div>
     <div class="footer-links">
       <a href="mailto:chanhihi55@gmail.com" class="footer-link">
@@ -972,12 +1210,36 @@ footer {
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         chanhhh.tistory.com
       </a>
+      <a href="./sw" class="footer-link" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        software.engineer
+      </a>
     </div>
   </div>
   <div class="footer-inner" style="margin-top:0;padding-top:0;">
     <p class="footer-copy">© 2026 Kim Chanhee</p>
   </div>
 </footer>
+
+<dialog class="link-modal" id="link-modal" aria-labelledby="link-modal-title">
+  <div class="link-modal-shell">
+    <div class="link-modal-head">
+      <div class="link-modal-heading">
+        <span class="link-modal-kicker">Article preview</span>
+        <strong class="link-modal-title" id="link-modal-title">링크 미리보기</strong>
+      </div>
+      <div class="link-modal-actions">
+        <p class="link-modal-notice">외부 사이트의 보안 정책으로 내용이 보이지 않으면 ‘새 탭에서 열기’를 이용해 주세요.</p>
+        <a class="link-modal-external" id="link-modal-external" href="#" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
+        <button class="link-modal-close" id="link-modal-close" type="button" aria-label="미리보기 닫기">×</button>
+      </div>
+    </div>
+    <div class="link-modal-address" id="link-modal-address"></div>
+    <div class="link-modal-body">
+      <iframe class="link-modal-frame" id="link-modal-frame" title="링크 미리보기" loading="lazy"></iframe>
+    </div>
+  </div>
+</dialog>
 
 <div class="lb-overlay" id="lb" onclick="closeLb(event)">
   <button class="lb-close" onclick="closeLb()">×</button>
@@ -1009,6 +1271,50 @@ document.addEventListener('keydown', function(e) {
     document.getElementById('lb-vid').pause();
   }
 });
+
+(function setupLinkModal() {
+  var modal = document.getElementById('link-modal');
+  var frame = document.getElementById('link-modal-frame');
+  var title = document.getElementById('link-modal-title');
+  var address = document.getElementById('link-modal-address');
+  var external = document.getElementById('link-modal-external');
+  var closeButton = document.getElementById('link-modal-close');
+
+  if (!modal || typeof modal.showModal !== 'function') return;
+
+  document.querySelectorAll('a[href]').forEach(function(link) {
+    if (link.closest('nav, footer, dialog')) return;
+
+    var rawHref = link.getAttribute('href');
+    if (!rawHref || rawHref.charAt(0) === '#') return;
+
+    link.addEventListener('click', function(event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      var url = new URL(link.href, window.location.href);
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+
+      event.preventDefault();
+
+      var cardTitle = link.closest('.card') && link.closest('.card').querySelector('h4');
+      title.textContent = cardTitle ? cardTitle.textContent.trim() : link.textContent.trim();
+      address.textContent = url.href;
+      external.href = url.href;
+      frame.src = url.href;
+      document.body.classList.add('modal-open');
+      modal.showModal();
+    });
+  });
+
+  closeButton.addEventListener('click', function() { modal.close(); });
+  modal.addEventListener('click', function(event) {
+    if (event.target === modal) modal.close();
+  });
+  modal.addEventListener('close', function() {
+    frame.src = 'about:blank';
+    document.body.classList.remove('modal-open');
+  });
+})();
 </script>
 
 </body>
