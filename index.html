@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>김찬희 — iOS Developer Portfolio</title>
+<title>김찬희 — iOS Engineer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
   --nav-h: 56px;
 }
 
-html { scroll-behavior: smooth; background: var(--dark); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; background: var(--dark); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.65; }
 body { overflow-x: hidden; }
 
 /* ─── NAV ─── */
@@ -51,7 +51,7 @@ nav {
   border-bottom: 1px solid var(--dark-bdr);
 }
 .nav-name {
-  font-size: 14px; font-weight: 700; color: var(--text-on-dark-hi);
+  font-size: 14px; font-weight: 400; color: var(--text-on-dark-hi);
   letter-spacing: -0.01em; font-family: var(--mono);
 }
 .nav-name span { color: var(--accent); }
@@ -488,7 +488,7 @@ footer {
 
 <!-- ─── NAV ─── -->
 <nav>
-  <a href="#" class="nav-name" style="text-decoration:none;">KimChanhee<span>.dev</span></a>
+  <a href="#" class="nav-name" style="text-decoration:none;">KimChanhee<span>.iOS</span></a>
   <div class="nav-links">
     <a href="#about">소개</a>
     <a href="#project">프로젝트</a>
@@ -499,7 +499,7 @@ footer {
 <!-- ─── HERO ─── -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">iOS Developer</div>
+    <div class="hero-eyebrow">iOS Engineer</div>
     <h1>
       김찬희
       <span class="role">문제를 추적하고, 구조로 해결하는 iOS 개발자</span>
@@ -734,6 +734,59 @@ footer {
     </div>
 
 
+    <!-- 실시간 스프레드시트 View 최적화 -->
+    <div class="ach-section">
+      <div class="ach-hd"><div class="ach-dot b"></div><h3>실시간 스프레드시트 View 최적화</h3></div>
+      <p class="ach-desc">수만 개 셀을 유지하던 View 구조를 2차원 가상화로 전환하고, 상태 변화의 영향 범위에 맞춰 UI 갱신 경계를 재설계했습니다.</p>
+      <div class="cgrid cg3">
+
+        <div class="card b2">
+          <div class="tag">Objective · 목적</div>
+          <h4>대규모 실시간 리포트의 반응성 확보</h4>
+          <ul>
+            <li>최대 <span class="hi">96명 × 327개 지표</span>가 2Hz로 갱신되는 환경에서 끊김 없는 양방향 스크롤 제공</li>
+            <li>상단 2개 행과 첫 번째 열을 고정하는 Freeze Panes 동작을 유지하면서 View 생성 비용 최소화</li>
+            <li>부분 갱신 과정에서도 벤칭·Goal·정렬 등 기존 기능의 화면 정합성 보장</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">31,392</span><span class="ml">최대 Metric View</span></div>
+            <div class="m"><span class="mv">2Hz</span><span class="ml">Live Update</span></div>
+          </div>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">Execution · 실행</div>
+          <h4>View 가상화와 갱신 경계 재설계</h4>
+          <ul>
+            <li>Instruments로 스크롤 시 <span class="cd">ViewGraph</span> 갱신과 <span class="cd">ForEach</span> 순회가 반복되는 병목 확인</li>
+            <li>표 전체를 하나의 <span class="hi">UICollectionView</span>로 통합하고 행·열을 함께 가상화해 가시 셀만 생성·재사용</li>
+            <li>Custom Layout에서 <span class="cd">contentOffset</span> 기준으로 상단 2개 행과 첫 번째 열을 고정해 Freeze Panes 구현</li>
+            <li>실시간 값·평균·벤칭·표 구조 변경의 영향 범위를 분류해 직접 갱신, 부분 reload, 전체 reload로 구분</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv">2D</span><span class="ml">Virtualization</span></div>
+            <div class="m"><span class="mv">Scoped</span><span class="ml">UI Update</span></div>
+          </div>
+        </div>
+
+        <div class="card b2">
+          <div class="tag">Key Results · 결과</div>
+          <h4>상시 View 99% 이상 감소</h4>
+          <ul>
+            <li>최악의 상황에서 최대 31,392개였던 상시 View를 화면에 보이는 <span class="hi">약 170개 셀</span>로 제한하고</li>
+            <li>여러 ScrollView의 Binding 동기화를 제거해 스크롤 중 SwiftUI body·레이아웃 연쇄 갱신 해소</li>
+            <li>Instruments의 주요 비용이 View Graph 갱신에서 실제 평균값 계산으로 이동하고, 부분 갱신에서도 화면 정합성 유지</li>
+          </ul>
+          <div class="mrow">
+            <div class="m"><span class="mv b">99%+</span><span class="ml">상시 View 감소</span></div>
+            <div class="m"><span class="mv">≈170</span><span class="ml">Visible Cell</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
     <!-- 아키텍처 -->
     <div class="ach-section">
       <div class="ach-hd"><div class="ach-dot t"></div><h3>데이터 구조 개선 및 확장성 확보</h3></div>
@@ -957,7 +1010,7 @@ footer {
   <div class="footer-inner">
     <div>
       <div class="footer-name">김찬희</div>
-      <div class="footer-role">iOS Developer · Fitogether</div>
+      <div class="footer-role">iOS Engineer · Fitogether</div>
     </div>
     <div class="footer-links">
       <a href="mailto:chanhihi55@gmail.com" class="footer-link">
@@ -971,6 +1024,10 @@ footer {
       <a href="https://chanhhh.tistory.com/" class="footer-link" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         chanhhh.tistory.com
+      </a>
+      <a href="./sw" class="footer-link" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        software.engineer
       </a>
     </div>
   </div>
