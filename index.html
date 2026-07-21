@@ -350,6 +350,60 @@ nav {
 .m-link .mv, .m-link .ml { transition: color 0.15s; }
 .m-link:hover .mv, .m-link:hover .ml { color: var(--accent2); }
 
+/* ─── LINK PREVIEW MODAL ─── */
+.link-modal {
+  width: min(1320px, calc(100vw - 24px));
+  height: 80dvh;
+  max-width: none; max-height: none;
+  margin: auto; padding: 0; overflow: hidden;
+  color: var(--text-on-dark-hi); background: var(--dark-surf);
+  border: 1px solid #31547D; border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.62);
+}
+.link-modal::backdrop {
+  background: rgba(2,5,10,0.82);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+}
+.link-modal-shell { display: grid; grid-template-rows: auto auto 1fr; height: 100%; }
+.link-modal-head {
+  min-height: 62px; padding: 11px 14px 11px 18px;
+  display: flex; align-items: center; gap: 18px;
+  border-bottom: 1px solid var(--dark-bdr);
+}
+.link-modal-heading { min-width: 0; flex: 1; }
+.link-modal-kicker {
+  display: block; color: var(--accent);
+  font: 700 10px var(--mono); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.link-modal-title {
+  display: block; overflow: hidden; margin-top: 2px;
+  font-size: 15px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap;
+}
+.link-modal-actions { display: flex; align-items: center; gap: 8px; }
+.link-modal-external, .link-modal-close {
+  color: var(--text-on-dark); background: var(--dark);
+  border: 1px solid var(--dark-bdr); border-radius: 4px;
+  font: 700 11px var(--mono);
+}
+.link-modal-external { padding: 8px 11px; text-decoration: none; }
+.link-modal-external:hover { color: var(--accent); border-color: var(--accent); }
+.link-modal-close { width: 34px; height: 34px; padding: 0; cursor: pointer; font-size: 20px; line-height: 1; }
+.link-modal-close:hover { color: var(--text-on-dark-hi); border-color: var(--accent2); }
+.link-modal-address {
+  overflow: hidden; padding: 8px 18px;
+  color: var(--text-on-dark-dim); background: var(--dark);
+  border-bottom: 1px solid var(--dark-bdr);
+  font: 10.5px var(--mono); text-overflow: ellipsis; white-space: nowrap;
+}
+.link-modal-body { position: relative; min-height: 0; background: #FFF; }
+.link-modal-frame { display: block; width: 100%; height: 100%; border: 0; background: #FFF; }
+.link-modal-notice {
+  max-width: 390px; margin: 0;
+  color: var(--text-on-dark-dim); font-size: 10.5px; line-height: 1.4;
+  text-align: right; word-break: keep-all;
+}
+body.modal-open { overflow: hidden; }
+
 /* ─── FOOTER ─── */
 footer {
   background: var(--dark);
@@ -441,6 +495,12 @@ footer {
   .footer-inner { grid-template-columns: 1fr; }
   .footer-links { align-items: flex-start; }
   footer { padding: 48px 20px; }
+  .link-modal { width: calc(100vw - 20px); height: 80dvh; }
+  .link-modal-head { flex-direction: column; align-items: stretch; gap: 7px; padding: 10px 12px; }
+  .link-modal-actions { width: 100%; }
+  .link-modal-notice { flex: 1; max-width: none; font-size: 9.5px; text-align: left; }
+  .link-modal-external { padding: 8px; font-size: 10px; }
+  .link-modal-title { font-size: 13px; }
 }
 
 /* landscape — 2-col: text left, stats right */
@@ -1042,6 +1102,26 @@ footer {
   </div>
 </footer>
 
+<dialog class="link-modal" id="link-modal" aria-labelledby="link-modal-title">
+  <div class="link-modal-shell">
+    <div class="link-modal-head">
+      <div class="link-modal-heading">
+        <span class="link-modal-kicker">Article preview</span>
+        <strong class="link-modal-title" id="link-modal-title">링크 미리보기</strong>
+      </div>
+      <div class="link-modal-actions">
+        <p class="link-modal-notice">외부 사이트의 보안 정책으로 내용이 보이지 않으면 ‘새 탭에서 열기’를 이용해 주세요.</p>
+        <a class="link-modal-external" id="link-modal-external" href="#" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
+        <button class="link-modal-close" id="link-modal-close" type="button" aria-label="미리보기 닫기">×</button>
+      </div>
+    </div>
+    <div class="link-modal-address" id="link-modal-address"></div>
+    <div class="link-modal-body">
+      <iframe class="link-modal-frame" id="link-modal-frame" title="링크 미리보기" loading="lazy"></iframe>
+    </div>
+  </div>
+</dialog>
+
 <div class="lb-overlay" id="lb" onclick="closeLb(event)">
   <button class="lb-close" onclick="closeLb()">×</button>
   <img id="lb-img" src="" alt="" style="display:none">
@@ -1072,6 +1152,50 @@ document.addEventListener('keydown', function(e) {
     document.getElementById('lb-vid').pause();
   }
 });
+
+(function setupLinkModal() {
+  var modal = document.getElementById('link-modal');
+  var frame = document.getElementById('link-modal-frame');
+  var title = document.getElementById('link-modal-title');
+  var address = document.getElementById('link-modal-address');
+  var external = document.getElementById('link-modal-external');
+  var closeButton = document.getElementById('link-modal-close');
+
+  if (!modal || typeof modal.showModal !== 'function') return;
+
+  document.querySelectorAll('a[href]').forEach(function(link) {
+    if (link.closest('nav, footer, dialog')) return;
+
+    var rawHref = link.getAttribute('href');
+    if (!rawHref || rawHref.charAt(0) === '#') return;
+
+    link.addEventListener('click', function(event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      var url = new URL(link.href, window.location.href);
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+
+      event.preventDefault();
+
+      var cardTitle = link.closest('.card') && link.closest('.card').querySelector('h4');
+      title.textContent = cardTitle ? cardTitle.textContent.trim() : link.textContent.trim();
+      address.textContent = url.href;
+      external.href = url.href;
+      frame.src = url.href;
+      document.body.classList.add('modal-open');
+      modal.showModal();
+    });
+  });
+
+  closeButton.addEventListener('click', function() { modal.close(); });
+  modal.addEventListener('click', function(event) {
+    if (event.target === modal) modal.close();
+  });
+  modal.addEventListener('close', function() {
+    frame.src = 'about:blank';
+    document.body.classList.remove('modal-open');
+  });
+})();
 </script>
 
 </body>
