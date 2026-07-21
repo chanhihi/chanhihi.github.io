@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="펌웨어부터 실시간 애플리케이션까지, 데이터 흐름과 시스템 병목을 구조적으로 해결해 온 김찬희의 소프트웨어 엔지니어 포트폴리오">
-  <meta property="og:title" content="김찬희 — 소프트웨어 엔지니어 포트폴리오">
+  <meta property="og:title" content="김찬희 — SW Engineer Portfolio">
   <meta property="og:description" content="펌웨어, C++ 시스템, 실시간 데이터 처리와 측정 기반 최적화 경험">
   <meta property="og:type" content="website">
-  <title>김찬희 — 소프트웨어 엔지니어 포트폴리오</title>
+  <title>김찬희 — SW Engineer Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -106,6 +106,52 @@
     .chips { display: flex; flex-wrap: wrap; gap: 7px; }
     .chip { padding: 4px 7px; border: 1px solid var(--line); color: #c8d8ea; font: 11px var(--mono); }
 
+    .link-modal {
+      width: min(1320px, calc(100vw - 24px));
+      height: 80dvh;
+      max-width: none;
+      max-height: none;
+      margin: auto;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #31547d;
+      border-radius: 8px;
+      color: var(--text);
+      background: var(--surface);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .62);
+    }
+    .link-modal::backdrop { background: rgba(2, 5, 10, .82); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+    .modal-shell { display: grid; grid-template-rows: auto auto 1fr; height: 100%; }
+    .modal-head { display: flex; align-items: center; gap: 18px; min-height: 62px; padding: 11px 14px 11px 18px; border-bottom: 1px solid var(--line); }
+    .modal-heading { min-width: 0; flex: 1; }
+    .modal-kicker { display: block; color: var(--green); font: 700 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .modal-title { display: block; overflow: hidden; margin-top: 2px; font-size: 15px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+    .modal-actions { display: flex; align-items: center; gap: 8px; }
+    .modal-notice { max-width: 390px; margin: 0; color: var(--dim); font-size: 10.5px; line-height: 1.4; text-align: right; word-break: keep-all; }
+    .modal-external, .modal-close { border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--bg); font: 700 11px var(--mono); }
+    .modal-external { padding: 8px 11px; text-decoration: none; white-space: nowrap; }
+    .modal-external:hover { border-color: var(--green); color: var(--green-2); }
+    .modal-close { width: 34px; height: 34px; padding: 0; cursor: pointer; font-size: 20px; line-height: 1; }
+    .modal-close:hover { border-color: #65a6ff; color: var(--text); }
+    .modal-address { overflow: hidden; padding: 8px 18px; border-bottom: 1px solid var(--line); color: var(--dim); background: var(--bg); font: 10.5px var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+    .modal-body { position: relative; min-height: 0; background: #fff; }
+    .modal-frame { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+    .modal-preview { display: none; height: 100%; padding: clamp(30px, 7vw, 86px); overflow-y: auto; color: var(--text); background: radial-gradient(circle at 80% 10%, rgba(0, 196, 140, .08), transparent 35%), var(--surface); }
+    .modal-body.is-preview { background: var(--surface); }
+    .modal-body.is-preview .modal-frame { display: none; }
+    .modal-body.is-preview .modal-preview { display: flex; flex-direction: column; justify-content: center; }
+    .modal-preview-tag { color: var(--green); font: 700 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .modal-okr-label { margin-top: 24px; color: #65a6ff; font: 700 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .modal-preview-title { max-width: 760px; margin: 8px 0 18px; font-size: clamp(30px, 5vw, 58px); line-height: 1.12; letter-spacing: -.045em; }
+    .modal-preview-copy { max-width: 760px; margin: 0; color: var(--muted); font-size: clamp(15px, 2vw, 18px); }
+    .modal-kr { max-width: 760px; margin-top: 28px; }
+    .modal-kr .modal-okr-label { margin-top: 0; }
+    .modal-kr-list { display: grid; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+    .modal-kr-list li { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; padding: 10px 13px; border: 1px solid var(--line); background: rgba(8, 12, 20, .42); color: #c8d8ea; font-size: 14px; }
+    .modal-kr-index { color: var(--green); font: 700 10px var(--mono); letter-spacing: .06em; }
+    .modal-preview-note { max-width: 760px; margin: 24px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--dim); font: 11px/1.65 var(--mono); }
+    body.modal-open { overflow: hidden; }
+
     footer { background: var(--bg); padding: 64px 40px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.65; }
     .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
     .footer-name { margin-bottom: 8px; color: var(--text); font-size: clamp(24px, 4vw, 40px); font-weight: 700; letter-spacing: -.03em; }
@@ -130,9 +176,87 @@
       .footer-inner { grid-template-columns: 1fr; }
       .footer-links { align-items: flex-start; }
       footer { padding: 48px 20px; }
+      .link-modal { width: calc(100vw - 20px); height: 80dvh; }
+      .modal-head { flex-direction: column; align-items: stretch; gap: 7px; padding: 10px 12px; }
+      .modal-actions { width: 100%; }
+      .modal-notice { flex: 1; max-width: none; font-size: 9.5px; text-align: left; }
+      .modal-external { padding: 8px; font-size: 10px; }
+      .modal-title { font-size: 13px; }
     }
 
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    @page { size: A4; margin: 12mm 11mm 13mm; }
+
+    @media print {
+      *, *::before, *::after { animation: none !important; transition: none !important; box-shadow: none !important; }
+      html, body {
+        width: auto; min-width: 0; overflow: visible;
+        color: #1a2a3a; background: #fff;
+        font-size: 9.5pt; line-height: 1.45;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      nav, .link-modal { display: none !important; }
+      p { orphans: 3; widows: 3; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: 100%; max-width: none; }
+
+      section { padding: 8mm 0; border-bottom: 1px solid #d4dce8; scroll-margin-top: 0; }
+      .hero { padding: 4mm 0 9mm; color: #1a2a3a; background: #fff; }
+      .eyebrow { margin-bottom: 4mm; color: #078a67; }
+      h1 { max-width: 165mm; color: #1a2a3a; font-size: 31pt; line-height: 1.06; }
+      .green { color: #078a67; }
+      .hero-copy { max-width: 160mm; margin-top: 5mm; color: #364d62; font-size: 10.5pt; line-height: 1.6; }
+      .hero-copy strong { color: #1a2a3a; }
+      .truth-note { max-width: 160mm; margin-top: 5mm; padding: 3mm 4mm; color: #364d62; background: #f2f5f9; border-color: #c7d7eb; font-size: 8.5pt; break-inside: avoid; }
+      .truth-note b { color: #1a72e8; }
+      .metrics { margin-top: 6mm; border-color: #d4dce8; break-inside: avoid; }
+      .metric { min-height: 0; padding: 4mm; background: #f2f5f9; border-right-color: #d4dce8; }
+      .metric strong { color: #078a67; font-size: 18pt; }
+      .metric span { margin-top: 1mm; color: #364d62; font-size: 8pt; }
+      .metric small { color: #6e849a; font-size: 7pt; }
+
+      .section-head { grid-template-columns: 35mm 1fr; gap: 6mm; margin-bottom: 6mm; break-inside: avoid; }
+      .section-num { color: #078a67; font-size: 8pt; }
+      h2 { color: #1a2a3a; font-size: 20pt; }
+      .section-intro { max-width: none; margin-top: 2mm; color: #6e849a; font-size: 9pt; }
+      .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3mm; }
+      .card {
+        padding: 4mm 4.5mm; overflow: visible;
+        color: #1a2a3a; background: #fff; border-color: #d4dce8;
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .card:hover { background: #fff; border-color: #d4dce8; }
+      .tag { color: #078a67; font-size: 7pt; }
+      .card h3 { margin: 2mm 0; color: #1a2a3a; font-size: 10pt; }
+      .card p { color: #364d62; font-size: 8.3pt; line-height: 1.5; }
+      .result { margin-top: 3mm; padding: .7mm 1.5mm; color: #078a67; background: #f0fbf7; border-color: #b9e7d8; font-size: 7.2pt; }
+      .project-link { margin-top: 2.5mm; color: #087d60; font-size: 7.5pt; }
+
+      .principles { grid-template-columns: repeat(3, 1fr); border-color: #d4dce8; break-inside: avoid; }
+      .principle { padding: 4mm; border-right-color: #d4dce8; }
+      .principle b { margin-bottom: 2mm; color: #078a67; font-size: 8pt; }
+      .principle p { color: #364d62; font-size: 7.5pt; }
+      .stack { grid-template-columns: repeat(2, 1fr); gap: 3mm; }
+      .stack-group { padding: 4mm; background: #fff; border-color: #d4dce8; break-inside: avoid; }
+      .stack-group h3 { margin-bottom: 2mm; color: #6e849a; font-size: 7.5pt; }
+      .chips { gap: 1.5mm; }
+      .chip { padding: .8mm 1.5mm; color: #364d62; border-color: #d4dce8; font-size: 7.5pt; }
+
+      footer {
+        min-height: 0;
+        display: block;
+        padding: 14mm 0 0; color: #1a2a3a; background: #fff; border-top: 0;
+        break-inside: avoid;
+      }
+      .footer-inner { width: 100%; max-width: none; }
+      .footer-name { color: #1a2a3a; font-size: 18pt; }
+      .footer-role, .footer-copy { color: #6e849a; }
+      .footer-links { min-width: 75mm; gap: 2mm; }
+      .footer-link { padding: 2mm 3mm; color: #364d62; border-color: #d4dce8; font-size: 8pt; }
+      .footer-copy { margin-top: 5mm; padding-top: 3mm; border-top-color: #d4dce8; }
+    }
   </style>
 </head>
 <body>
@@ -148,21 +272,21 @@
   <main id="top">
     <section class="hero">
       <div class="wrap">
-        <p class="eyebrow">펌웨어 · C++ 시스템 · 실시간 애플리케이션</p>
+        <p class="eyebrow">펌웨어 · 시스템 소프트웨어 · 실시간 애플리케이션</p>
         <h1>데이터의 흐름을 이해하고,<br><span class="green">병목을 구조로 해결합니다.</span></h1>
         <p class="hero-copy">
-          ARM Cortex-M 펌웨어, C++ 비동기 HTTP 서버, GPS 기반 실시간 iOS 서비스를 개발하며
-          디바이스에서 애플리케이션까지 이어지는 데이터 흐름을 다뤄 왔습니다.
+          ARM Cortex-M 펌웨어, C++ 비동기 HTTP 서버, macOS·iOS 제품과 GPS 기반 실시간 서비스를 개발하며
+          디바이스에서 통신·저장·사용자 인터페이스까지 이어지는 데이터 흐름을 다뤄 왔습니다.
           <strong>문제를 수치로 설명하고, 실패 조건을 끝까지 추적하며, 동료가 운영할 수 있는 구조로 개선합니다.</strong>
         </p>
         <div class="truth-note">
           <b>검증 기준</b>
-          <span>펌웨어와 iOS 실무 경험, C/C++ 프로젝트처럼 직접 확인할 수 있는 근거만 담았습니다.</span>
+          <span>실무 측정 결과, App Store 배포, 수상 기록, 공개 저장소처럼 직접 확인할 수 있는 근거만 담았습니다.</span>
         </div>
         <div class="metrics" aria-label="검증된 실무 성과">
-          <div class="metric"><strong>21개월</strong><span>C/C++ 펌웨어 실무</span><small>Cortex-M0+ · BLE · PSoC4</small></div>
-          <div class="metric"><strong>C++98</strong><span>HTTP/1.1 비동기 서버</span><small>KQueue · POSIX · CGI</small></div>
-          <div class="metric"><strong>10</strong><span>C++ 모듈 00–09</span><small>객체지향 · STL · 템플릿</small></div>
+          <div class="metric"><strong>3년 3개월</strong><span>소프트웨어 개발 경력</span><small>애플리케이션 · 펌웨어</small></div>
+          <div class="metric"><strong>-90%</strong><span>데이터 저장 메모리</span><small>Backpressure · Batch · Query Cache</small></div>
+          <div class="metric"><strong>-40%</strong><span>실시간 처리 CPU</span><small>O(n) → O(1) · A16 → A14</small></div>
           <div class="metric"><strong>31K→170</strong><span>실시간 UI 객체 축소</span><small>96명 · 327지표 · 2Hz</small></div>
         </div>
       </div>
@@ -171,10 +295,10 @@
     <section id="systems">
       <div class="wrap">
         <div class="section-head">
-          <div class="section-num">01 / 시스템 기반</div>
+          <div class="section-num">01 / 소프트웨어 경험</div>
           <div>
-            <h2>하드웨어 가까이에서 시작한<br>시스템 프로그래밍 경험</h2>
-            <p class="section-intro">제한된 자원의 펌웨어부터 프로세스·동시성·소켓을 다루는 C/C++ 프로젝트까지, 추상화 아래에서 데이터가 움직이는 방식을 직접 구현했습니다.</p>
+            <h2>디바이스부터 제품까지 잇는<br>소프트웨어 엔지니어링 경험</h2>
+            <p class="section-intro">제약이 큰 임베디드 환경, C/C++ 시스템 프로그래밍, Web↔Native 통합, 앱 설계·배포까지 서로 다른 계층에서 동작하는 소프트웨어를 구현했습니다.</p>
           </div>
         </div>
 
@@ -186,18 +310,33 @@
             <span class="result">C/C++ · 베어메탈 · BLE · 독자 프로토콜</span>
           </article>
           <article class="card">
+            <div class="tag">해커톤 수상 · 2023.10–2024.07</div>
+            <h3>42Box macOS 통합 플랫폼</h3>
+            <p>교육기관 내 여러 웹 서비스를 하나의 macOS 제품으로 통합했습니다. WebKit으로 FE·BE와 네이티브 기능을 연결하고, GitHub Actions 기반 릴리즈·버전 관리 자동화를 구축했습니다. 기획과 macOS 개발을 맡아 정보통신기획평가원장상을 수상했습니다.</p>
+            <span class="result">WebKit · 배포 자동화 · 정보통신기획평가원장상</span><br>
+            <a class="project-link" href="https://github.com/42Box/macOS" target="_blank" rel="noopener">macOS 저장소 보기 ↗</a>
+          </article>
+          <article class="card">
+            <div class="tag">프로젝트 리딩 · 2024.04–2024.07</div>
+            <h3>42Box iOS 제품 개발·배포</h3>
+            <p>macOS 제품을 iOS 사용 흐름에 맞게 확장하고 App Store에 배포했습니다. WKWebView 탐색, 폴더 기반 링크 관리, NSCache, Share Extension을 구현하고 Tuist 모듈 구성과 Fastlane·GitHub Actions 기반 TestFlight 배포 파이프라인을 구축했습니다.</p>
+            <span class="result">App Store · Share Extension · CI/CD</span><br>
+            <a class="project-link" href="https://github.com/42Box/iOS" target="_blank" rel="noopener">iOS 저장소 보기 ↗</a>
+            <a class="project-link" href="https://apps.apple.com/kr/app/42box/id6499335551" target="_blank" rel="noopener" style="margin-left:14px">App Store ↗</a>
+          </article>
+          <article class="card">
             <div class="tag">팀 프로젝트 · C++98</div>
             <h3>비동기 HTTP/1.1 웹 서버</h3>
-            <p>KQueue 이벤트 루프와 POSIX 소켓으로 다중 클라이언트 요청을 비동기 처리했습니다. HTTP 요청 파싱, GET·POST·DELETE·PUT·HEAD, CGI, 설정 파서를 인터페이스 중심 구조로 구현한 팀 프로젝트입니다.</p>
-            <span class="result">KQueue · POSIX · CGI · Siege 부하 테스트</span><br>
+            <p>KQueue 이벤트 루프와 POSIX 소켓으로 다중 클라이언트 요청을 비동기 처리했습니다. HTTP 파싱, 주요 Method, CGI, 설정 파서를 인터페이스 중심으로 분리하고 Siege로 동시 요청을 검증했습니다.</p>
+            <span class="result">KQueue · POSIX · CGI · 부하 테스트</span><br>
             <a class="project-link" href="https://github.com/MyLittleWebServer/webserv" target="_blank" rel="noopener">저장소 보기 ↗</a>
           </article>
           <article class="card">
-            <div class="tag">42서울 · C++98</div>
-            <h3>C++ 모듈 00–09</h3>
-            <p>객체 수명주기와 Orthodox Canonical Form에서 시작해 상속·다형성·예외·형변환·템플릿·STL 컨테이너와 알고리즘까지 단계적으로 구현했습니다.</p>
-            <span class="result">객체지향 · RAII 기초 · 템플릿 · STL</span><br>
-            <a class="project-link" href="https://github.com/chanheki/CPP" target="_blank" rel="noopener">저장소 보기 ↗</a>
+            <div class="tag">모듈화 · 3D 데이터 · 2024.02</div>
+            <h3>Swifty Proteins 구조 설계</h3>
+            <p>단백질 구조 데이터를 파싱해 리간드 위치를 계산하고 SceneKit으로 3D 시각화했습니다. Tuist 기반 모듈 구조와 프로토콜 인터페이스를 설계해 데이터 해석, 도메인 로직, 표현 계층의 책임을 분리했습니다.</p>
+            <span class="result">SceneKit · 데이터 파싱 · 모듈화 아키텍처</span><br>
+            <a class="project-link" href="https://github.com/chanheki/swifty-proteins" target="_blank" rel="noopener">저장소 보기 ↗</a>
           </article>
           <article class="card">
             <div class="tag">42서울 · C 시스템</div>
@@ -225,7 +364,8 @@
             <div class="tag">iOS UI · 2차원 가상화</div>
             <h3>3만 셀 실시간 스프레드시트 재설계</h3>
             <p>최대 96명과 327개 지표가 2Hz로 갱신되는 화면에서 SwiftUI View Graph와 스크롤 offset 동기화를 병목으로 확인했습니다. 하나의 UICollectionView와 Custom Layout으로 행·열을 함께 가상화하고, 고정 행·열은 contentOffset 기반으로 배치했습니다.</p>
-            <span class="result">31,392개 View → 화면 내 약 170개 Cell</span>
+            <span class="result">31,392개 View → 화면 내 약 170개 Cell</span><br>
+            <a class="project-link" href="https://chanhhh.tistory.com/353" target="_blank" rel="noopener">리팩토링 기록 보기 ↗</a>
           </article>
           <article class="card">
             <div class="tag">부분 갱신 · 화면 정합성</div>
@@ -285,9 +425,9 @@
 
         <div class="evidence-grid">
           <article class="card"><div class="tag">01 · 측정</div><h3>감이 아니라 숫자로 답합니다.</h3><p>Instruments와 로그로 병목 가설을 검증합니다. UI 구조를 바꾼 뒤 주요 비용이 View Graph 갱신에서 실제 평균값 계산으로 이동한 것까지 확인했고, CPU -40%, 메모리 -90%, 시간 오차 약 1초→5–50ms처럼 전후 조건과 결과를 남깁니다.</p></article>
-          <article class="card"><div class="tag">02 · 소통</div><h3>기술을 공통 언어로 만듭니다.</h3><p>HW·FW·App의 문제를 레이어별로 설명하고, 복잡한 지표 정의를 MetricMeta 한 곳으로 모았습니다. 동료가 같은 모델로 이야기하고 안전하게 확장할 수 있는 구조를 선호합니다.</p></article>
+          <article class="card"><div class="tag">02 · 협업</div><h3>계층과 직군 사이의 경계를 연결합니다.</h3><p>HW·FW·App의 문제를 레이어별로 설명하고, 42Box에서는 FE·BE·디자인과 기획부터 배포까지 조율했습니다. 동료가 같은 모델로 이야기하고 안전하게 확장할 수 있는 구조를 선호합니다.</p></article>
           <article class="card"><div class="tag">03 · 책임</div><h3>성능과 정확성을 함께 지킵니다.</h3><p>부분 갱신을 줄이는 과정에서 벤칭·Goal 상태가 일부 셀에 반영되지 않는 문제를 확인하고 갱신 범위를 다시 분류했습니다. OOM, 무응답, 오래된 타이머처럼 정상 경로 밖의 조건도 끝까지 추적합니다.</p></article>
-          <article class="card"><div class="tag">04 · 학습</div><h3>도메인의 경계를 두지 않습니다.</h3><p>펌웨어에서 C/C++ 시스템, 웹·iOS, 실시간 데이터로 영역을 확장했습니다. AI로 새 언어와 도구를 빠르게 익히되 생성 결과를 직접 이해하고 검증하며 배움을 팀에 남깁니다.</p></article>
+          <article class="card"><div class="tag">04 · 확장</div><h3>플랫폼보다 문제를 먼저 봅니다.</h3><p>펌웨어에서 C/C++ 시스템, Web↔Native, macOS·iOS 제품, 실시간 데이터로 영역을 확장했습니다. 기술 선택의 근거와 생성 결과를 직접 이해하고 측정으로 검증합니다.</p></article>
         </div>
 
         <div class="principles" style="margin-top:16px">
@@ -304,18 +444,49 @@
           <div class="section-num">04 / 기술</div>
           <div>
             <h2>실무와 프로젝트에서 사용해 온 기술</h2>
-            <p class="section-intro">펌웨어, C/C++ 시스템 프로젝트, iOS 실서비스를 개발하고 운영하며 사용한 기술입니다.</p>
+            <p class="section-intro">임베디드, 시스템 프로그래밍, Apple 플랫폼 제품, 실시간 서비스의 개발·배포·운영에 사용한 기술입니다.</p>
           </div>
         </div>
         <div class="stack">
           <div class="stack-group"><h3>언어</h3><div class="chips"><span class="chip">Swift</span><span class="chip">C</span><span class="chip">C++</span></div></div>
           <div class="stack-group"><h3>시스템 · 임베디드</h3><div class="chips"><span class="chip">POSIX</span><span class="chip">KQueue</span><span class="chip">pthread</span><span class="chip">TCP / UDP</span><span class="chip">ARM Cortex-M</span><span class="chip">BLE</span></div></div>
-          <div class="stack-group"><h3>Apple · 데이터</h3><div class="chips"><span class="chip">iOS</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">UICollectionView</span><span class="chip">Combine</span><span class="chip">SQLite</span></div></div>
-          <div class="stack-group"><h3>검증 도구</h3><div class="chips"><span class="chip">Instruments</span><span class="chip">XCTest</span><span class="chip">Siege</span></div></div>
+          <div class="stack-group"><h3>제품 · 데이터</h3><div class="chips"><span class="chip">iOS</span><span class="chip">macOS</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">WebKit</span><span class="chip">SceneKit</span><span class="chip">Combine</span><span class="chip">SQLite</span></div></div>
+          <div class="stack-group"><h3>빌드 · 검증</h3><div class="chips"><span class="chip">Tuist</span><span class="chip">Fastlane</span><span class="chip">GitHub Actions</span><span class="chip">Instruments</span><span class="chip">XCTest</span><span class="chip">Siege</span></div></div>
         </div>
       </div>
     </section>
   </main>
+
+  <dialog class="link-modal" id="link-modal" aria-labelledby="link-modal-title">
+    <div class="modal-shell">
+      <div class="modal-head">
+        <div class="modal-heading">
+          <span class="modal-kicker">Project preview</span>
+          <strong class="modal-title" id="link-modal-title">링크 미리보기</strong>
+        </div>
+        <div class="modal-actions">
+          <p class="modal-notice">외부 사이트의 보안 정책으로 내용이 보이지 않으면 ‘새 탭에서 열기’를 이용해 주세요.</p>
+          <a class="modal-external" id="link-modal-external" href="#" target="_blank" rel="noopener">새 탭에서 열기 ↗</a>
+          <button class="modal-close" id="link-modal-close" type="button" aria-label="미리보기 닫기">×</button>
+        </div>
+      </div>
+      <div class="modal-address" id="link-modal-address"></div>
+      <div class="modal-body" id="link-modal-content">
+        <iframe class="modal-frame" id="link-modal-frame" title="링크 미리보기" loading="lazy"></iframe>
+        <div class="modal-preview">
+          <span class="modal-preview-tag" id="link-modal-preview-tag">OKR</span>
+          <span class="modal-okr-label">Objective</span>
+          <h2 class="modal-preview-title" id="link-modal-preview-title"></h2>
+          <p class="modal-preview-copy" id="link-modal-preview-copy"></p>
+          <div class="modal-kr">
+            <div class="modal-okr-label">Key Results</div>
+            <ul class="modal-kr-list" id="link-modal-kr-list"></ul>
+          </div>
+          <p class="modal-preview-note">외부 사이트는 보안 정책상 이 화면 안에 직접 표시할 수 없어 프로젝트 요약을 제공합니다. 전체 내용은 상단의 ‘새 탭에서 열기’에서 확인할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
   <footer id="contact">
     <div class="footer-inner">
@@ -346,5 +517,80 @@
       <p class="footer-copy">© 2026 Kim Chanhee</p>
     </div>
   </footer>
+  <script>
+    (() => {
+      const modal = document.getElementById('link-modal');
+      const frame = document.getElementById('link-modal-frame');
+      const title = document.getElementById('link-modal-title');
+      const address = document.getElementById('link-modal-address');
+      const external = document.getElementById('link-modal-external');
+      const closeButton = document.getElementById('link-modal-close');
+      const content = document.getElementById('link-modal-content');
+      const previewTag = document.getElementById('link-modal-preview-tag');
+      const previewTitle = document.getElementById('link-modal-preview-title');
+      const previewCopy = document.getElementById('link-modal-preview-copy');
+      const previewKrList = document.getElementById('link-modal-kr-list');
+
+      if (!modal || typeof modal.showModal !== 'function') return;
+
+      document.querySelectorAll('main a[href]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          const url = new URL(link.href, window.location.href);
+          if (!['http:', 'https:'].includes(url.protocol)) return;
+
+          event.preventDefault();
+
+          const card = link.closest('.card');
+          const cardTitle = card?.querySelector('h3')?.textContent.trim();
+          title.textContent = cardTitle || link.textContent.trim() || url.hostname;
+          address.textContent = url.href;
+          external.href = url.href;
+
+          const canEmbed = url.origin === window.location.origin || url.hostname === 'chanhhh.tistory.com';
+
+          if (canEmbed) {
+            content.classList.remove('is-preview');
+            frame.src = url.href;
+          } else {
+            content.classList.add('is-preview');
+            frame.src = 'about:blank';
+            const cardTag = card?.querySelector('.tag')?.textContent.trim() || url.hostname;
+            const keyResults = (card?.querySelector('.result')?.textContent.trim() || url.hostname)
+              .split('·')
+              .map((item) => item.trim())
+              .filter(Boolean);
+
+            previewTag.textContent = `OKR · ${cardTag}`;
+            previewTitle.textContent = cardTitle || link.textContent.trim() || url.hostname;
+            previewCopy.textContent = card?.querySelector('p')?.textContent.trim() || '외부 링크의 전체 내용을 새 탭에서 확인할 수 있습니다.';
+            previewKrList.replaceChildren(...keyResults.map((keyResult, index) => {
+              const item = document.createElement('li');
+              const number = document.createElement('span');
+              const value = document.createElement('span');
+              number.className = 'modal-kr-index';
+              number.textContent = `KR ${index + 1}`;
+              value.textContent = keyResult;
+              item.append(number, value);
+              return item;
+            }));
+          }
+
+          document.body.classList.add('modal-open');
+          modal.showModal();
+        });
+      });
+
+      closeButton.addEventListener('click', () => modal.close());
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) modal.close();
+      });
+      modal.addEventListener('close', () => {
+        frame.src = 'about:blank';
+        document.body.classList.remove('modal-open');
+      });
+    })();
+  </script>
 </body>
 </html>
