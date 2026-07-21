@@ -576,38 +576,54 @@ footer {
   .hero {
     min-height: 0;
     display: block;
-    padding: 4mm 0 9mm;
+    padding: 3mm 0 6mm;
     overflow: visible;
     color: var(--text); background: #FFF;
     border-bottom: 1px solid var(--light-bdr);
   }
   .hero::before { display: none; }
-  .hero-inner { max-width: none; }
-  .hero-eyebrow { margin-bottom: 4mm; color: #078A67; }
+  .hero-inner {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 1fr 63mm;
+    column-gap: 7mm;
+    align-items: start;
+  }
+  .hero-inner > * { grid-column: 1; }
+  .hero-eyebrow { margin-bottom: 2.5mm; color: #078A67; }
   .hero h1 {
     margin-bottom: 0;
     color: var(--text);
-    font-size: 32pt; line-height: 1.02; letter-spacing: -0.035em;
+    font-size: 26pt; line-height: 1.02; letter-spacing: -0.035em;
   }
-  .hero h1 .role { margin-top: 3mm; color: var(--text-mid); font-size: 15pt; }
-  .hero-desc { max-width: 145mm; margin-top: 5mm; color: var(--text-mid); font-size: 10.5pt; line-height: 1.6; }
+  .hero h1 .role { margin-top: 2mm; color: var(--text-mid); font-size: 11.5pt; }
+  .hero-desc { max-width: none; margin-top: 3mm; color: var(--text-mid); font-size: 8.5pt; line-height: 1.5; }
   .hero-stats {
-    width: 100%; margin-top: 7mm;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    width: 100%; margin-top: 0;
+    flex-direction: column;
     border-color: var(--light-bdr); border-radius: 4px;
     break-inside: avoid;
   }
-  .hs { flex: 1; padding: 4mm 5mm; background: var(--light-bg); border-right-color: var(--light-bdr); }
-  .hs .hv { color: var(--text); font-size: 20pt; }
-  .hs .hl { color: var(--text-mid); font-size: 8pt; }
+  .hs { flex: 1; padding: 3mm 4mm; background: var(--light-bg); border-right: 0; border-bottom: 1px solid var(--light-bdr); }
+  .hs:last-child { border-bottom: 0; }
+  .hs .hv { color: var(--text); font-size: 16pt; }
+  .hs .hl { margin-top: 1mm; color: var(--text-mid); font-size: 7pt; }
 
-  .about, .project { padding: 9mm 0; background: #FFF; }
+  .about { padding: 5mm 0; background: #FFF; }
+  .project { padding: 6mm 0; background: #FFF; }
   .about-inner, .project-inner { max-width: none; }
-  .about-inner { grid-template-columns: 1fr 1fr; gap: 10mm; align-items: start; }
-  .about h2 { font-size: 20pt; }
-  .about p { color: var(--text-mid); font-size: 9pt; line-height: 1.55; }
-  .stack-grid { gap: 2.5mm; }
-  .stack-row { gap: 1.5mm; }
-  .chip { padding: 1mm 2.2mm; font-size: 7.5pt; background: #FFF; }
+  .about-inner { grid-template-columns: 1fr 1fr; gap: 7mm; align-items: start; }
+  .about-label { margin-bottom: 1.5mm; }
+  .about h2 { margin-bottom: 3mm; font-size: 16pt; }
+  .about p { color: var(--text-mid); font-size: 7.6pt; line-height: 1.4; }
+  .about p + p { margin-top: 1.5mm !important; }
+  .about .stack-label + p { margin-top: 0 !important; font-size: 8.5pt !important; line-height: 1.4 !important; }
+  .stack-grid { gap: 1.5mm; margin-top: 3mm !important; }
+  .stack-cat { margin-bottom: 1mm; font-size: 6.5pt; }
+  .stack-row { gap: 1mm; }
+  .chip { padding: .7mm 1.7mm; font-size: 6.5pt; background: #FFF; }
 
   .project { border-top-color: var(--light-bdr); }
   .project-hd {
@@ -1198,9 +1214,9 @@ footer {
       <div class="footer-role">iOS Engineer · Fitogether</div>
     </div>
     <div class="footer-links">
-      <a href="mailto:chanhihi55@gmail.com" class="footer-link">
+      <a href="mailto:dev.chanhihi@gmail.com" class="footer-link">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-        chanhihi55@gmail.com
+        dev.chanhihi@gmail.com
       </a>
       <a href="https://github.com/chanhihi" class="footer-link" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
