@@ -346,6 +346,9 @@ nav {
 .m .mv.b { color: var(--accent2); }
 .m .mv.w { color: var(--warn); }
 .m .ml { font-size: 11px; letter-spacing: 0.03em; color: var(--text-mid); font-family: var(--sans); }
+.m-link { text-decoration: none; }
+.m-link .mv, .m-link .ml { transition: color 0.15s; }
+.m-link:hover .mv, .m-link:hover .ml { color: var(--accent2); }
 
 /* ─── FOOTER ─── */
 footer {
@@ -773,13 +776,16 @@ footer {
           <div class="tag">Key Results · 결과</div>
           <h4>상시 View 99% 이상 감소</h4>
           <ul>
-            <li>최악의 상황에서 최대 31,392개였던 상시 View를 화면에 보이는 <span class="hi">약 170개 셀</span>로 제한하고</li>
+            <li>최악의 상황에서 최대 31,392개였던 상시 View를 화면에 보이는 <span class="hi">약 170개 셀</span>로 제한</li>
             <li>여러 ScrollView의 Binding 동기화를 제거해 스크롤 중 SwiftUI body·레이아웃 연쇄 갱신 해소</li>
             <li>Instruments의 주요 비용이 View Graph 갱신에서 실제 평균값 계산으로 이동하고, 부분 갱신에서도 화면 정합성 유지</li>
           </ul>
           <div class="mrow">
             <div class="m"><span class="mv b">99%+</span><span class="ml">상시 View 감소</span></div>
             <div class="m"><span class="mv">≈170</span><span class="ml">Visible Cell</span></div>
+            <a href="https://chanhhh.tistory.com/353" class="m m-link" target="_blank" rel="noopener noreferrer">
+              <span class="mv b">LINK ↗</span><span class="ml">리팩토링 기록</span>
+            </a>
           </div>
         </div>
 
