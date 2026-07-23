@@ -7,7 +7,7 @@
 <title>김찬희 — iOS Engineer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -359,6 +359,10 @@ nav {
   color: var(--text-on-dark-hi); background: var(--dark-surf);
   border: 1px solid #31547D; border-radius: 8px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.62);
+}
+.link-modal.article-responsive {
+  width: min(1050px, calc(100vw - 24px));
+  margin-inline: auto;
 }
 .link-modal::backdrop {
   background: rgba(2,5,10,0.82);
@@ -787,6 +791,7 @@ footer {
             <a href="https://chanhhh.tistory.com/258" target="_blank" rel="noopener" class="chip key" style="text-decoration:none;">Clean <span style="font-size:14px;">↗</span></a>
             <a href="https://chanhhh.tistory.com/253" target="_blank" rel="noopener" class="chip" style="text-decoration:none;">Modular <span style="font-size:14px;">↗</span></a>
             <a href="https://chanhhh.tistory.com/306" target="_blank" rel="noopener" class="chip" style="text-decoration:none;">TCA <span style="font-size:14px;">↗</span></a>
+            <span class="chip key">Protocol-Oriented Design</span>
             <span class="chip">Navigation</span>
           </div>
         </div>
@@ -879,7 +884,6 @@ footer {
         </div>
       </div>
     </div>
-    
 
     <!-- 성능 개선 -->
     <div class="ach-section">
@@ -1172,7 +1176,7 @@ footer {
           <ul>
             <li>도메인별 <span class="hi">Unit Test 17종</span> — Activity, 다운로드 단위 변환, RPE 계산, 라이브 컨트롤 등</li>
             <li><span class="hi">Page Object 패턴</span> 기반 UITest 29종 (Page 9개 + Flow 20개 E2E 시나리오)</li>
-            <li>의존성 역전 구조(<span class="cd">ActivitySyncing</span> 프로토콜)로 테스트 가능성 확보</li>
+            <li>의존성 역전 구조(<span class="cd">ActivitySyncing</span> 프로토콜)로 외부 의존성과 도메인 규칙을 분리해 테스트 가능성 확보</li>
           </ul>
           <div class="mrow">
             <div class="m"><span class="mv g">17</span><span class="ml">Unit Test</span></div>
@@ -1316,6 +1320,7 @@ document.addEventListener('keydown', function(e) {
       title.textContent = cardTitle ? cardTitle.textContent.trim() : link.textContent.trim();
       address.textContent = url.href;
       external.href = url.href;
+      modal.classList.toggle('article-responsive', url.hostname === 'chanhhh.tistory.com');
       frame.src = url.href;
       document.body.classList.add('modal-open');
       modal.showModal();
@@ -1328,6 +1333,7 @@ document.addEventListener('keydown', function(e) {
   });
   modal.addEventListener('close', function() {
     frame.src = 'about:blank';
+    modal.classList.remove('article-responsive');
     document.body.classList.remove('modal-open');
   });
 })();
