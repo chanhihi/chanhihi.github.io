@@ -7,7 +7,7 @@
 <title>김찬희 — iOS Engineer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -360,6 +360,10 @@ nav {
   border: 1px solid #31547D; border-radius: 8px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.62);
 }
+.link-modal.article-responsive {
+  width: min(1050px, calc(100vw - 24px));
+  margin-inline: auto;
+}
 .link-modal::backdrop {
   background: rgba(2,5,10,0.82);
   backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
@@ -576,38 +580,54 @@ footer {
   .hero {
     min-height: 0;
     display: block;
-    padding: 4mm 0 9mm;
+    padding: 3mm 0 6mm;
     overflow: visible;
     color: var(--text); background: #FFF;
     border-bottom: 1px solid var(--light-bdr);
   }
   .hero::before { display: none; }
-  .hero-inner { max-width: none; }
-  .hero-eyebrow { margin-bottom: 4mm; color: #078A67; }
+  .hero-inner {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 1fr 63mm;
+    column-gap: 7mm;
+    align-items: start;
+  }
+  .hero-inner > * { grid-column: 1; }
+  .hero-eyebrow { margin-bottom: 2.5mm; color: #078A67; }
   .hero h1 {
     margin-bottom: 0;
     color: var(--text);
-    font-size: 32pt; line-height: 1.02; letter-spacing: -0.035em;
+    font-size: 26pt; line-height: 1.02; letter-spacing: -0.035em;
   }
-  .hero h1 .role { margin-top: 3mm; color: var(--text-mid); font-size: 15pt; }
-  .hero-desc { max-width: 145mm; margin-top: 5mm; color: var(--text-mid); font-size: 10.5pt; line-height: 1.6; }
+  .hero h1 .role { margin-top: 2mm; color: var(--text-mid); font-size: 11.5pt; }
+  .hero-desc { max-width: none; margin-top: 3mm; color: var(--text-mid); font-size: 8.5pt; line-height: 1.5; }
   .hero-stats {
-    width: 100%; margin-top: 7mm;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    width: 100%; margin-top: 0;
+    flex-direction: column;
     border-color: var(--light-bdr); border-radius: 4px;
     break-inside: avoid;
   }
-  .hs { flex: 1; padding: 4mm 5mm; background: var(--light-bg); border-right-color: var(--light-bdr); }
-  .hs .hv { color: var(--text); font-size: 20pt; }
-  .hs .hl { color: var(--text-mid); font-size: 8pt; }
+  .hs { flex: 1; padding: 3mm 4mm; background: var(--light-bg); border-right: 0; border-bottom: 1px solid var(--light-bdr); }
+  .hs:last-child { border-bottom: 0; }
+  .hs .hv { color: var(--text); font-size: 16pt; }
+  .hs .hl { margin-top: 1mm; color: var(--text-mid); font-size: 7pt; }
 
-  .about, .project { padding: 9mm 0; background: #FFF; }
+  .about { padding: 5mm 0; background: #FFF; }
+  .project { padding: 6mm 0; background: #FFF; }
   .about-inner, .project-inner { max-width: none; }
-  .about-inner { grid-template-columns: 1fr 1fr; gap: 10mm; align-items: start; }
-  .about h2 { font-size: 20pt; }
-  .about p { color: var(--text-mid); font-size: 9pt; line-height: 1.55; }
-  .stack-grid { gap: 2.5mm; }
-  .stack-row { gap: 1.5mm; }
-  .chip { padding: 1mm 2.2mm; font-size: 7.5pt; background: #FFF; }
+  .about-inner { grid-template-columns: 1fr 1fr; gap: 7mm; align-items: start; }
+  .about-label { margin-bottom: 1.5mm; }
+  .about h2 { margin-bottom: 3mm; font-size: 16pt; }
+  .about p { color: var(--text-mid); font-size: 7.6pt; line-height: 1.4; }
+  .about p + p { margin-top: 1.5mm !important; }
+  .about .stack-label + p { margin-top: 0 !important; font-size: 8.5pt !important; line-height: 1.4 !important; }
+  .stack-grid { gap: 1.5mm; margin-top: 3mm !important; }
+  .stack-cat { margin-bottom: 1mm; font-size: 6.5pt; }
+  .stack-row { gap: 1mm; }
+  .chip { padding: .7mm 1.7mm; font-size: 6.5pt; background: #FFF; }
 
   .project { border-top-color: var(--light-bdr); }
   .project-hd {
@@ -771,6 +791,7 @@ footer {
             <a href="https://chanhhh.tistory.com/258" target="_blank" rel="noopener" class="chip key" style="text-decoration:none;">Clean <span style="font-size:14px;">↗</span></a>
             <a href="https://chanhhh.tistory.com/253" target="_blank" rel="noopener" class="chip" style="text-decoration:none;">Modular <span style="font-size:14px;">↗</span></a>
             <a href="https://chanhhh.tistory.com/306" target="_blank" rel="noopener" class="chip" style="text-decoration:none;">TCA <span style="font-size:14px;">↗</span></a>
+            <span class="chip key">Protocol-Oriented Design</span>
             <span class="chip">Navigation</span>
           </div>
         </div>
@@ -863,7 +884,6 @@ footer {
         </div>
       </div>
     </div>
-    
 
     <!-- 성능 개선 -->
     <div class="ach-section">
@@ -1156,7 +1176,7 @@ footer {
           <ul>
             <li>도메인별 <span class="hi">Unit Test 17종</span> — Activity, 다운로드 단위 변환, RPE 계산, 라이브 컨트롤 등</li>
             <li><span class="hi">Page Object 패턴</span> 기반 UITest 29종 (Page 9개 + Flow 20개 E2E 시나리오)</li>
-            <li>의존성 역전 구조(<span class="cd">ActivitySyncing</span> 프로토콜)로 테스트 가능성 확보</li>
+            <li>의존성 역전 구조(<span class="cd">ActivitySyncing</span> 프로토콜)로 외부 의존성과 도메인 규칙을 분리해 테스트 가능성 확보</li>
           </ul>
           <div class="mrow">
             <div class="m"><span class="mv g">17</span><span class="ml">Unit Test</span></div>
@@ -1198,9 +1218,9 @@ footer {
       <div class="footer-role">iOS Engineer · Fitogether</div>
     </div>
     <div class="footer-links">
-      <a href="mailto:chanhihi55@gmail.com" class="footer-link">
+      <a href="mailto:dev.chanhihi@gmail.com" class="footer-link">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-        chanhihi55@gmail.com
+        dev.chanhihi@gmail.com
       </a>
       <a href="https://github.com/chanhihi" class="footer-link" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -1300,6 +1320,7 @@ document.addEventListener('keydown', function(e) {
       title.textContent = cardTitle ? cardTitle.textContent.trim() : link.textContent.trim();
       address.textContent = url.href;
       external.href = url.href;
+      modal.classList.toggle('article-responsive', url.hostname === 'chanhhh.tistory.com');
       frame.src = url.href;
       document.body.classList.add('modal-open');
       modal.showModal();
@@ -1312,6 +1333,7 @@ document.addEventListener('keydown', function(e) {
   });
   modal.addEventListener('close', function() {
     frame.src = 'about:blank';
+    modal.classList.remove('article-responsive');
     document.body.classList.remove('modal-open');
   });
 })();
