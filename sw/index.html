@@ -120,6 +120,10 @@
       background: var(--surface);
       box-shadow: 0 24px 80px rgba(0, 0, 0, .62);
     }
+    .link-modal.article-responsive {
+      width: min(990px, calc(100vw - 24px));
+      margin-inline: auto;
+    }
     .link-modal::backdrop { background: rgba(2, 5, 10, .82); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
     .modal-shell { display: grid; grid-template-rows: auto auto 1fr; height: 100%; }
     .modal-head { display: flex; align-items: center; gap: 18px; min-height: 62px; padding: 11px 14px 11px 18px; border-bottom: 1px solid var(--line); }
@@ -552,9 +556,11 @@
           const canEmbed = url.origin === window.location.origin || url.hostname === 'chanhhh.tistory.com';
 
           if (canEmbed) {
+            modal.classList.toggle('article-responsive', url.hostname === 'chanhhh.tistory.com');
             content.classList.remove('is-preview');
             frame.src = url.href;
           } else {
+            modal.classList.remove('article-responsive');
             content.classList.add('is-preview');
             frame.src = 'about:blank';
             const cardTag = card?.querySelector('.tag')?.textContent.trim() || url.hostname;
@@ -589,6 +595,7 @@
       });
       modal.addEventListener('close', () => {
         frame.src = 'about:blank';
+        modal.classList.remove('article-responsive');
         document.body.classList.remove('modal-open');
       });
     })();
