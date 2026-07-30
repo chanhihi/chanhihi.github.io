@@ -427,6 +427,22 @@ footer {
 }
 .footer-link:hover { border-color: var(--accent); color: var(--accent); }
 .footer-link svg { flex-shrink: 0; }
+.footer-link.cta {
+  position: relative;
+  border-color: rgba(0,196,140,0.4);
+  color: var(--accent);
+  animation: cta-glow 2.2s ease-in-out infinite;
+}
+.footer-link.cta:hover { animation-play-state: paused; border-color: var(--accent); }
+.footer-link.cta .cta-arrow { margin-left: auto; display: inline-flex; animation: cta-nudge 1.4s ease-in-out infinite; }
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,196,140,0.35); }
+  60% { box-shadow: 0 0 0 8px rgba(0,196,140,0); }
+}
+@keyframes cta-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
 .footer-copy { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--dark-bdr); font-family: var(--mono); font-size: 10.5px; color: var(--text-on-dark-dim); letter-spacing: 0.05em; }
 
 /* ─── RESPONSIVE ─── */
@@ -547,6 +563,7 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .ticker { animation: none; }
   .scroll-hint::after { animation: none; }
+  .footer-link.cta, .footer-link.cta .cta-arrow { animation: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -1233,6 +1250,11 @@ footer {
       <a href="./sw" class="footer-link" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
         software.engineer
+      </a>
+      <a href="./journey" class="footer-link cta" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.447-2.724A1 1 0 0 1 3 16.382V5.618a1 1 0 0 1 1.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0 0 21 18.382V7.618a1 1 0 0 0-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        Explore My Journey
+        <span class="cta-arrow" aria-hidden="true">→</span>
       </a>
     </div>
   </div>
